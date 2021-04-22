@@ -57,8 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(LoginActivity.this,"Login successful", Toast.LENGTH_SHORT).show();
                 /*If login is successful, start MainActivity*/
-                startActivity(new Intent());
-                startActivity(new Intent LoginActivity.this), MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
 
             }
