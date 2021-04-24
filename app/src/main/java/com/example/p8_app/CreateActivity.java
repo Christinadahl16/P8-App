@@ -34,7 +34,7 @@ public class CreateActivity extends AppCompatActivity {
         /*Link to activity_create2 XML file*/
         email =findViewById(R.id.email);
         password =findViewById(R.id.password);
-        create =findViewById(R.id.create);
+        create =findViewById(R.id.login1);
 
         /*Initialize auth variable*/
         auth = FirebaseAuth.getInstance();

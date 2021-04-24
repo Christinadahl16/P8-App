@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center_horizontal"
@@ -68,33 +68,36 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
-        android:id="@+id/create"
+        android:id="@+id/login1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="64dp"
         android:backgroundTint="@color/Green"
         android:text="Login"
         android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/create1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:text="Create new account"
-        android:textSize="10dp"
         android:backgroundTint="@color/Blue"
+        android:text="Create new account"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/create"
+        android:textSize="10dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/login1"
         app:layout_constraintEnd_toEndOf="@+id/password"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/create" />
+        app:layout_constraintTop_toTopOf="@+id/login1" />
 
     <TextView
         android:id="@+id/textView2"

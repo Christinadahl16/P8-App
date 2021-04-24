@@ -31,13 +31,13 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         /*Connect buttons to XML file*/
-        login =findViewById(R.id.login);
-        create =findViewById(R.id.create);
+        login =findViewById(R.id.login1);
+        create =findViewById(R.id.create1);
 
         /*Add OnClickListeners to login and create button*/
         create.setOnClickListener(new View.OnClickListener() {
