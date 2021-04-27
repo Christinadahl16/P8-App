@@ -1,13 +1,13 @@
 package com.example.p8_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -45,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
                 String txt_password = password.getText().toString();
                 loginUser(txt_email, txt_password);
 
+
+
             }
         });
     }
@@ -57,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(LoginActivity.this,"Login successful", Toast.LENGTH_SHORT).show();
                 /*If login is successful, start MainActivity*/
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, FrontpageActivity.class));
                 finish();
 
             }
