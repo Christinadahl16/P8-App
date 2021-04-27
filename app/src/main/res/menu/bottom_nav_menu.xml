@@ -3,14 +3,18 @@
 
     <item
         android:id="@+id/products"
+        android:icon="@drawable/ic_baseline_local_florist_24"
         android:title="Products"/>
     <item
         android:id="@+id/aboutGrønttorvet"
+        android:icon="@drawable/ic_baseline_info_24"
         android:title="About Grønttorvet" />
     <item
         android:id="@+id/AboutApp"
+        android:icon="@drawable/ic_baseline_info_24"
         android:title="About this App" />
     <item
         android:id="@+id/Myprofile"
+        android:icon="@drawable/ic_baseline_settings_24"
         android:title="My Profile" />
 </menu>
