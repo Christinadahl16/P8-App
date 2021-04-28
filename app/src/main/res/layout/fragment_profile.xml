@@ -57,11 +57,7 @@
         android:layout_marginBottom="-129dp"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
-        android:textColor="@color/black"
-        app:layout_relativeEnd_toEndOf="parent"
-        app:layout_relativeHorizontal_bias="1.0"
-        app:layout_relativeStart_toStartOf="parent"
-        app:layout_relativeTop_toBottomOf="@+id/imageView" />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/profile"
@@ -106,11 +102,7 @@
         android:layout_marginBottom="-64dp"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="@color/black"
-        app:layout_relativeEnd_toEndOf="parent"
-        app:layout_relativeHorizontal_bias="1.0"
-        app:layout_relativeStart_toStartOf="parent"
-        app:layout_relativeTop_toBottomOf="@+id/imageView" />
+        android:textColor="@color/black" />
 
 
 </RelativeLayout>
