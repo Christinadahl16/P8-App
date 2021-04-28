@@ -5,6 +5,72 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <Button
+        android:id="@+id/save"
+        android:layout_width="119dp"
+        android:layout_height="0dp"
+        android:layout_below="@+id/email"
+        android:layout_alignStart="@+id/email2"
+        android:layout_alignLeft="@+id/email2"
+        android:layout_alignEnd="@+id/email2"
+        android:layout_alignRight="@+id/email2"
+        android:layout_alignBottom="@+id/email2"
+        android:layout_marginStart="122dp"
+        android:layout_marginLeft="122dp"
+        android:layout_marginTop="159dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginRight="122dp"
+        android:layout_marginBottom="-95dp"
+        android:background="@color/Green"
+        android:text="Save"
+        android:textColor="@color/black"
+        app:backgroundTint="#4CAF50"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <Button
+        android:id="@+id/signOut4"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_alignStart="@+id/profile"
+        android:layout_alignLeft="@+id/profile"
+        android:layout_alignEnd="@+id/profile"
+        android:layout_alignRight="@+id/profile"
+        android:layout_marginStart="157dp"
+        android:layout_marginLeft="157dp"
+        android:layout_marginEnd="-130dp"
+        android:layout_marginRight="-130dp"
+        android:layout_marginBottom="68dp"
+        android:backgroundTint="@color/Peach"
+        android:text="Sign out"
+        android:textColor="@color/black"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/email2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="-129dp"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/black"
+        app:layout_relativeEnd_toEndOf="parent"
+        app:layout_relativeHorizontal_bias="1.0"
+        app:layout_relativeStart_toStartOf="parent"
+        app:layout_relativeTop_toBottomOf="@+id/imageView" />
+
     <TextView
         android:id="@+id/profile"
         android:layout_width="wrap_content"
@@ -21,18 +87,18 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="303dp"
-        android:layout_height="226dp"
+        android:layout_width="317dp"
+        android:layout_height="222dp"
         android:layout_below="@+id/profile"
         android:layout_alignStart="@+id/profile"
         android:layout_alignLeft="@+id/profile"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="-81dp"
-        android:layout_marginLeft="-81dp"
-        android:layout_marginTop="51dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginRight="74dp"
+        android:layout_marginStart="-94dp"
+        android:layout_marginLeft="-94dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
         app:srcCompat="@drawable/vegetables" />
 
     <EditText
@@ -46,27 +112,13 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="-64dp"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
+        android:hint="Password"
+        android:inputType="textPassword"
         android:textColor="@color/black"
         app:layout_relativeEnd_toEndOf="parent"
         app:layout_relativeHorizontal_bias="1.0"
         app:layout_relativeStart_toStartOf="parent"
         app:layout_relativeTop_toBottomOf="@+id/imageView" />
 
-    
-
-    <EditText
-        android:id="@+id/number"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:hint="Mobile number"
-        android:inputType="textPassword"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/email"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
 
 </RelativeLayout>
