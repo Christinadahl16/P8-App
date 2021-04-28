@@ -52,12 +52,6 @@ public class FrontpageActivity extends AppCompatActivity {
 
             };
 
-     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_frontpage);
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-    }
-
     }
 
 
