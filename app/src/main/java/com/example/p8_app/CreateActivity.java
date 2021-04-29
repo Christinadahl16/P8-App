@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -26,6 +27,7 @@ public class CreateActivity extends AppCompatActivity {
 
     /*Firebase authentication variable*/
     private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,9 @@ public class CreateActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Toast.makeText(CreateActivity.this, "Create account failed", Toast.LENGTH_SHORT).show();
+
+                    FirebaseDatabase.getInstance().getReference().child("Users").child("email").setValue("password");
+
                 }
             }
         });
