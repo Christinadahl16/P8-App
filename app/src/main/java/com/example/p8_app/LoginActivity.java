@@ -1,31 +1,18 @@
 package com.example.p8_app;
 
-<<<<<<< Updated upstream
-=======
 import android.annotation.SuppressLint;
->>>>>>> Stashed changes
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-<<<<<<< Updated upstream
-=======
-import androidx.annotation.NonNull;
->>>>>>> Stashed changes
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -57,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
 
-        storeNewUsersData();
+        /*storeNewUsersData();*/
 
         /*When login button is clicked, call */
         login.setOnClickListener(new View.OnClickListener() {
@@ -69,11 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                 String txt_password = password.getText().toString();
                 loginUser(txt_email, txt_password);
 
-
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
             }
         });
     }
@@ -85,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(LoginActivity.this,"Login successful", Toast.LENGTH_SHORT).show();
-                /*If login is successful, start MainActivity*/
+                /*If login is successful, start FrontpageActivity*/
                 startActivity(new Intent(LoginActivity.this, FrontpageActivity.class));
                 finish();
 
@@ -93,9 +75,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void storeNewUsersData() {
+    /*private void storeNewUsersData() {
 
-        // Reference to the database that stores the data
+       // Reference to the database that stores the data
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
 
@@ -113,7 +95,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-        });
+        }); */
     }
 
-}

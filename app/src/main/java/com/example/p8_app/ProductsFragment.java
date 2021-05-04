@@ -1,16 +1,14 @@
 package com.example.p8_app;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -23,7 +21,17 @@ public class ProductsFragment extends Fragment {
     String name;
     String text;
 
+    private Button increase;
+    private Button increase2;
+    private Button decrease;
+    private Button decrease2;
+
     private Object Context;
+        /*Connect buttons to XML file
+        increase =findViewById(R.id.increase);
+        increase2 =findViewById(R.id.increase2);
+        decrease =findViewById(R.id.decrease);
+        decrease2 =findViewById(R.id.decrease2);*/
 
     @Nullable
     @Override

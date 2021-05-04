@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+/*View AboutgtFragment*/
 public class AboutgtFragment extends Fragment {
     @Nullable
     @Override

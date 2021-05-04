@@ -1,14 +1,10 @@
 package com.example.p8_app;
 
-import android.graphics.ImageDecoder;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private String origin;
     private String text;
     private ViewPager mViewPager;
+
+    TextView Produkter;
+    int count = 0;
 
     String mOrderId;
     String mOrder;
@@ -46,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frontpage);
 
+        Produkter = (TextView) findViewById(R.id.products1);
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         BottomNavigationView.OnNavigationItemSelectedListener navListener = null;
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -61,6 +62,19 @@ public class MainActivity extends AppCompatActivity {
         /*Set automatic user ID*/
         mFirebaseAnalytics.setUserId("user_pseudo_id");
 
+
+    }
+
+    public void increase (View v) {
+        count++;
+        Produkter.setText("" + count);
+    }
+
+    public void decrease (View v) {
+        if(count <= 0) count = 0;
+        else count--;
+
+        Produkter.setText("" + count);
 
     }
 
@@ -100,10 +114,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /*products.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(StartActivity.this, FrontpageActivity.class));
+            finish();
+        }
+    });
+
 
 
     /*Navigation bar*/
-    BottomNavigationView.OnNavigationItemSelectedListener navListener =
+    /*BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -128,5 +150,5 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment). commit();
                     return true;
                 }
-            };
+            }; */
 }

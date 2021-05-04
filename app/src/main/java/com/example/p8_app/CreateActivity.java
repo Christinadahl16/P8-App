@@ -23,7 +23,7 @@ public class CreateActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Button create;
-    private Button login;
+
 
     /*Firebase authentication variable*/
     private FirebaseAuth auth;
