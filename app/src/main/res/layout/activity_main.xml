@@ -6,14 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+  /*her inkludere vi en anden XML fil så den viser navbar og farmerOverview siden*/
+  <include
+      android:id="@+id/farmeroverview"
+      layout="@layout/activity_farmeroverview"
+      />
+
   <FrameLayout
       android:id="@+id/fragment_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_above="@id/bottom_nav"
-      />
+      android:layout_marginBottom="0dp" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+  <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
