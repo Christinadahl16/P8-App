@@ -2,130 +2,63 @@ package com.example.p8_app;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final Object TAG = "MainActivity";
-    private FirebaseAnalytics mFirebaseAnalytics;
-    private String id;
-    private String name;
-    private String mName;
-    private String price;
-    private String origin;
-    private String text;
-    private ViewPager mViewPager;
 
-    TextView Produkter;
-    int count = 0;
-
-    String mOrderId;
-    String mOrder;
-    String mOrderHistory;
-    String orderId;
-    String order;
-    String orderHistory;
-    String screenName;
-
-    Object info;
-
-    /*Set variable analytics*/
-    FirebaseAnalytics analytics;
+    /*Ref to buttons*/
+    EditText email;
+    EditText password;
+    Button login;
+    Button customerAccount;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_frontpage);
+        setContentView(R.layout.activity_main);
 
-        Produkter = (TextView) findViewById(R.id.products1);
-
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        BottomNavigationView.OnNavigationItemSelectedListener navListener = null;
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-
-        Bundle params = new Bundle();
-        params.putString("image_name", name);
-        params.putString("full_text", text);
-        mFirebaseAnalytics.logEvent("share_image", params);
-
-        // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
-        /*Set automatic user ID*/
-        mFirebaseAnalytics.setUserId("user_pseudo_id");
+        /*Link to activity_login XML file*/
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        login = findViewById(R.id.login1);
+        customerAccount = findViewById(R.id.lv_customerList);
 
 
-    }
+        /*Login onClickListener*/
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    public void increase (View v) {
-        count++;
-        Produkter.setText("" + count);
-    }
+                CustomerModel customerModel;
 
-    public void decrease (View v) {
-        if(count <= 0) count = 0;
-        else count--;
+                try {
+                    customerModel = new CustomerModel(email.getText().toString(), password.getText().toString());
+                    Toast.makeText(MainActivity.this, customerModel.toString(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                    customerModel = new CustomerModel("Error", "Error");
+                }
 
-        Produkter.setText("" + count);
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
-    }
+                boolean success = dataBaseHelper.addOne(customerModel);
+                Toast.makeText(MainActivity.this, "Success=" + success, Toast.LENGTH_SHORT).show();
 
-    /*Record ImageView*/
-    private void recordImageView() {
+            }
 
-        /*Set columns for database*/
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
-        bundle.putString(FirebaseAnalytics.Param.PRICE, price);
-        bundle.putString(FirebaseAnalytics.Param.ORIGIN, origin);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-    }
+                /*BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+                bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-    /*Set property for customer*/
-    private void setUserProperty(String name) {
-
-        /*Set user property for customer*/
-        mFirebaseAnalytics.setUserProperty("name", mName);
-        mFirebaseAnalytics.setUserProperty("order_id", mOrderId);
-        mFirebaseAnalytics.setUserProperty("order", mOrder);
-        mFirebaseAnalytics.setUserProperty("order_history", mOrderHistory);
-
-    }
-
-    /*Record screen view*/
-    private void recordScreenView() {
-
-        // [START set_current_screen]
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
-        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
-        // [END set_current_screen]
-    }
-
-
-    /*products.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(StartActivity.this, FrontpageActivity.class));
-            finish();
-        }
-    });
-
-
-
-    /*Navigation bar*/
-    /*BottomNavigationView.OnNavigationItemSelectedListener navListener =
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -133,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (item.getItemId()) {
                         case R.id.products:
-                            selectedFragment = new ProductsFragment();
+                            /*selectedFragment = new ProductsFragment();
                             break;
                         case R.id.aboutGrønttorvet:
                             selectedFragment = new AboutgtFragment();
@@ -150,5 +83,7 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment). commit();
                     return true;
                 }
-            }; */
-}
+            };*/
+
+        });
+    }}
