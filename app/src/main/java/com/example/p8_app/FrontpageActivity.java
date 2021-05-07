@@ -50,7 +50,7 @@ public class FrontpageActivity extends AppCompatActivity {
                     return true;
                 }
             };
-    public class FarmerOverview extends AppCompatActivity implements View.OnClickListener {
+    public class FarmerOverview extends AppCompatActivity {
         private Button button2;
         private Button button4;
         private Button button5;
@@ -65,46 +65,31 @@ public class FrontpageActivity extends AppCompatActivity {
             button4 = (Button) findViewById(R.id.button4);
             button5 = (Button) findViewById(R.id.button5);
 
-            button2.setOnClickListener(this);
-            button4.setOnClickListener(this);
-            button5.setOnClickListener(this);
-
-
-
-            }
-
-        @Override
-        public void onClick(View v) {
-            openProducts ();
-
-        }
-        public void openProducts() {
-            Intent intent = new Intent(this, ProductsFragment.class);
-            startActivity(intent);
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent( FrontpageActivity.this, ProductsFragment.class));
+                    finish();
+                }
+            });
+            button4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(FrontpageActivity.this, ProductsFragment.class));
+                    finish();
+                }
+            });
+            button5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(FrontpageActivity.this, LoginActivity.class));
+                    finish();
+                }
+            });
         }
     }
-
-       /* @Override
-        public void onClick(View v) {
-
-        });
-
-        }
-
-        /*Ved de 3 linjer nedenunder har vi lavet en "onclick"-funktion til de 3 knapper fra FarmerOverview.xml*/
-        /*Linjen nedenunder hører til "Se udvalg" som henviser til Farmer XXX's udvalg*/
-       /* public void button4(View view) {
-
-
-
-        }
-        /*Linjen nedenunder hører til "Se udvalg" som henviser til Farmer XXY's udvalg*/
-        /*public void button2(View view) {
-           ;
-        }
-        /*Linjen nedenunder henviser til knappen "Sign Out", som logger brugeren ud*/
-        /*public void button5(View view) {
-        }
-    }*/
 }
+
+
+
 
