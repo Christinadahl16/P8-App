@@ -10,14 +10,14 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class FrontpageActivity extends AppCompatActivity {
+/*public class FrontpageActivity extends AppCompatActivity {
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+       BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
     }
@@ -29,7 +29,7 @@ public class FrontpageActivity extends AppCompatActivity {
 
                     switch (item.getItemId()) {
                         case R.id.products:
-                            selectedFragment = new ProductsFragment();
+                            /*selectedFragment = new ProductsFragment();
                             break;
                         case R.id.aboutGrønttorvet:
                             selectedFragment = new AboutgtFragment();
@@ -47,4 +47,4 @@ public class FrontpageActivity extends AppCompatActivity {
                     return true;
                 }
             };
-}
+}*/

@@ -6,12 +6,85 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+  <EditText
+      android:id="@+id/customerEmail"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_marginStart="55dp"
+      android:layout_marginLeft="55dp"
+      android:layout_marginTop="139dp"
+      android:layout_marginEnd="145dp"
+      android:layout_marginRight="145dp"
+      android:ems="10"
+      android:hint="@string/customerEmail"
+      android:inputType="textEmailAddress" />
+
+  <EditText
+      android:id="@+id/editTextTextPassword2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_marginStart="54dp"
+      android:layout_marginLeft="54dp"
+      android:layout_marginTop="210dp"
+      android:layout_marginEnd="146dp"
+      android:layout_marginRight="146dp"
+      android:ems="10"
+      android:hint="@string/customerPassword"
+      android:inputType="textPassword" />
+
+  <Button
+      android:id="@+id/customerLogin"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@+id/customerEmail"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentLeft="true"
+      android:layout_marginStart="51dp"
+      android:layout_marginLeft="51dp"
+      android:layout_marginTop="165dp"
+      android:text="Login" />
+
+  <Button
+      android:id="@+id/customerAccount"
+      android:layout_width="142dp"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@+id/customerLogin"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_marginStart="42dp"
+      android:layout_marginLeft="42dp"
+      android:layout_marginTop="-2dp"
+      android:layout_marginEnd="88dp"
+      android:layout_marginRight="88dp"
+      android:layout_toEndOf="@+id/customerLogin"
+      android:layout_toRightOf="@+id/customerLogin"
+      android:text="Create Account" />
+
+  <ListView
+      android:id="@+id/lv_customerList"
+      android:layout_width="500dp"
+      android:layout_height="200dp"
+      android:layout_marginTop="400dp" />
+
   <FrameLayout
       android:id="@+id/fragment_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_above="@id/bottom_nav"
-      />
+      >
+
+
+  </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"

@@ -9,4 +9,11 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="customerEmail">customerEmail</string>
+    <string name="customerPassword">customerPassword</string>
+    <string name="FoodItemName">Food item name</string>
+    <string name="FoodItemPrice">Food item price</string>
+    <string name="FoodItemOrigin">Food item origin</string>
 </resources>
