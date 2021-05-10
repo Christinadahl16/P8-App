@@ -30,13 +30,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         super(context, "customer.db", null, 1);
     }
 
+    /*Define createTableStatment*/
+    String createTableStatement;
 
     /*First time db is accessed*/
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String createTableStatement = "CREATE TABLE " + CUSTOMER_TABLE + " (ID INTERGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CUSTOMER_EMAIL + " TEXT, " + COLUMN_CUSTOMER_PASSWORD + " TEXT)";
+        /*Customer table*/
+        createTableStatement = "CREATE TABLE " + CUSTOMER_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CUSTOMER_EMAIL + " TEXT, " + COLUMN_CUSTOMER_PASSWORD + " TEXT)";
         db.execSQL(createTableStatement);
+
+        /*Foodselection table*/
+        createTableStatement = "CREATE TABLE " + FOODSELECTION_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FOODSELECTION_NAME + " TEXT, " + COLUMN_FOODSELECTION_PRICE + " TEXT, " + COLUMN_FOODSELECTION_ORIGIN + " TEXT)";
+        db.execSQL(createTableStatement);
+
     }
 
     /*Db version number method*/
@@ -77,6 +85,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    /*Find customerModel in db. If not found, delete and return true*/
+    public boolean DeleteOne(CustomerModel customerModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " + CUSTOMER_TABLE + "WHERE " + COLUMN_CUSTOMER_EMAIL + COLUMN_CUSTOMER_PASSWORD+ "=" + customerModel.getEmail();
+        return true;
+    }
+
 
     public List<CustomerModel> getEveryone(){
         List<CustomerModel> returnList = new ArrayList<>();

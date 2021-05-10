@@ -11,6 +11,9 @@ public class FoodSelectionModel extends AppCompatActivity {
     private Double price;
     private String origin;
 
+    public FoodSelectionModel(String toString, String toString1, String toString2) {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

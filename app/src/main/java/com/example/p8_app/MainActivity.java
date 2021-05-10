@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 FoodSelectionModel foodSelectionModel;
 
                 try {
-                    foodSelectionModel = new FoodSelectionModel(foodItemName.getText().toString(), Double.parseDouble(price.get().toString()), origin.getText().toString());
+                    foodSelectionModel = new FoodSelectionModel(foodItemName.getText().toString(), price.getText().toString(), origin.getText().toString());
                     Toast.makeText(MainActivity.this, foodSelectionModel.toString(), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "Adding food item to database failed", Toast.LENGTH_SHORT).show();
