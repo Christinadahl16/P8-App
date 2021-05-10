@@ -9,4 +9,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="aboutapptext">his application is built to support the local farmers market at Frederikstorv in Aalborg Municipality. When you choose to buy locally produced and sustainable food, you support your community and the farms and farmers within it.
+To use this application, you must: 1) select the desired produce, 2) place the produce into your shopping basket, 3) select the day for your pick-up, 4) pay for your produce, 5) pick up the produce at the market.</string>
 </resources>

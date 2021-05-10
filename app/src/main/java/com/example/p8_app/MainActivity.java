@@ -2,125 +2,94 @@ package com.example.p8_app;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final Object TAG = "MainActivity";
-    private FirebaseAnalytics mFirebaseAnalytics;
-    private String id;
-    private String name;
-    private String mName;
-    private String price;
-    private String origin;
-    private String text;
-    private ViewPager mViewPager;
+    /*Ref to buttons on layout*/
+    EditText email;
+    EditText password;
+    Button login;
+    Button create;
+    ListView lv_customerList;
 
-    TextView Produkter;
-    int count = 0;
-
-    String mOrderId;
-    String mOrder;
-    String mOrderHistory;
-    String orderId;
-    String order;
-    String orderHistory;
-    String screenName;
-
-    Object info;
-
-    /*Set variable analytics*/
-    FirebaseAnalytics analytics;
-
+    ArrayAdapter customerArrayAdapter;
+    DataBaseHelper dataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_frontpage);
+        setContentView(R.layout.activity_main);
 
-        Produkter = (TextView) findViewById(R.id.products1);
+        /*Link to activity_login XML file*/
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        login = (Button) findViewById(R.id.login1);
+        create = (Button) findViewById(R.id.create1) ;
+        lv_customerList = findViewById(R.id.lv_customerList);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        BottomNavigationView.OnNavigationItemSelectedListener navListener = null;
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
-        Bundle params = new Bundle();
-        params.putString("image_name", name);
-        params.putString("full_text", text);
-        mFirebaseAnalytics.logEvent("share_image", params);
+        ShowCustomersOnListView(dataBaseHelper);
 
-        // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        //button listeners for the login og create buttons
+        login.setOnClickListener((v) -> {
 
-        /*Set automatic user ID*/
-        mFirebaseAnalytics.setUserId("user_pseudo_id");
+            CustomerModel customerModel;
 
+                try {
+                    customerModel = new CustomerModel(-1, email.getText().toString(), Integer.parseInt(password.getText().toString()));
+                    Toast.makeText(MainActivity.this, customerModel.toString(), Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Error creating customer", Toast.LENGTH_SHORT).show();
+                    customerModel = new CustomerModel( -1, "error");
+                }
 
-    }
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
-    public void increase (View v) {
-        count++;
-        Produkter.setText("" + count);
-    }
+                boolean success = dataBaseHelper.addOne(customerModel);
 
-    public void decrease (View v) {
-        if(count <= 0) count = 0;
-        else count--;
+                Toast.makeText(MainActivity.this, "Success=" + success, Toast.LENGTH_SHORT).show();
+                ShowCustomersOnListView(dataBaseHelper);
 
-        Produkter.setText("" + count);
+        });
 
-    }
+        create.setOnClickListener((v) -> {
 
-    /*Record ImageView*/
-    private void recordImageView() {
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
-        /*Set columns for database*/
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
-        bundle.putString(FirebaseAnalytics.Param.PRICE, price);
-        bundle.putString(FirebaseAnalytics.Param.ORIGIN, origin);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-    }
+                ShowCustomersOnListView(dataBaseHelper);
 
-    /*Set property for customer*/
-    private void setUserProperty(String name) {
+                //Toast.makeText(MainActivity.this, everyone.toString(),
+        });
 
-        /*Set user property for customer*/
-        mFirebaseAnalytics.setUserProperty("name", mName);
-        mFirebaseAnalytics.setUserProperty("order_id", mOrderId);
-        mFirebaseAnalytics.setUserProperty("order", mOrder);
-        mFirebaseAnalytics.setUserProperty("order_history", mOrderHistory);
+        lv_customerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CustomerModel clickedCustomer = (CustomerModel) parent.getItemAtPosition(position);
+                dataBaseHelper.deleteOne(clickedCustomer);
+                ShowCustomersOnListView(dataBaseHelper);
+                Toast.makeText(MainActivity.this, "Deleted" + clickedCustomer.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
-    /*Record screen view*/
-    private void recordScreenView() {
-
-        // [START set_current_screen]
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
-        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
-        // [END set_current_screen]
+    private void ShowCustomersOnListView(DataBaseHelper dataBaseHelper2) {
+        customerArrayAdapter = new ArrayAdapter<CustomerModel>(MainActivity.this, android.R.layout.simple_list_item_1, dataBaseHelper2.getEveryone());
+        lv_customerList.setAdapter(customerArrayAdapter);
     }
+}
 
-
-    /*products.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(StartActivity.this, FrontpageActivity.class));
-            finish();
-        }
-    });
 
 
 
@@ -150,5 +119,8 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment). commit();
                     return true;
                 }
-            }; */
-}
+            };
+
+
+     */
+

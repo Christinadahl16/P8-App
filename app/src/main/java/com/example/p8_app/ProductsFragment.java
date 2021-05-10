@@ -1,6 +1,6 @@
 package com.example.p8_app;
 
-import android.os.Bundle;
+/*import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +33,14 @@ public class ProductsFragment extends Fragment {
         decrease =findViewById(R.id.decrease);
         decrease2 =findViewById(R.id.decrease2);*/
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+       /* @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+                        return inflater.inflate(R.layout.fragment_products, container, false);
 
         /*Database items*/
-            Bundle itemAgurk = new Bundle();
+            /*Bundle itemAgurk = new Bundle();
             itemAgurk.putString(FirebaseAnalytics.Param.ITEM_ID, "1");
             itemAgurk.putString(FirebaseAnalytics.Param.ITEM_NAME, "agurk");
             itemAgurk.putDouble(FirebaseAnalytics.Param.PRICE, 8.00);
@@ -501,7 +503,7 @@ public class ProductsFragment extends Fragment {
             itemØstershat.putString(FirebaseAnalytics.Param.ORIGIN, "Danmark");
 
             /*Select product from a list*/
-            Bundle itemAgurkWithIndex = new Bundle(itemAgurk);
+            /*Bundle itemAgurkWithIndex = new Bundle(itemAgurk);
             itemAgurkWithIndex.putLong(FirebaseAnalytics.Param.INDEX, 1);
 
             Bundle itemAspargesWithIndex = new Bundle(itemAsparges);
@@ -766,7 +768,7 @@ public class ProductsFragment extends Fragment {
             analytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, viewItemListParams);
 
             /*Select a product from list*/
-            Bundle selectItemParams = new Bundle();
+           /* Bundle selectItemParams = new Bundle();
             selectItemParams.putString(FirebaseAnalytics.Param.ITEM_LIST_ID, "L001");
             selectItemParams.putString(FirebaseAnalytics.Param.ITEM_LIST_NAME, "Food Selection");
             selectItemParams.putParcelableArray(FirebaseAnalytics.Param.ITEMS,
@@ -1304,3 +1306,4 @@ public class ProductsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_products, container, false);
     }
 }
+*/

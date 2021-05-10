@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="button_first" type="id" />
+    <item name="lv_customerList" type="id" />
+    <item name="button2" type="id" />
+    <item name="button4" type="id" />
+    <item name="button5" type="id" />
 </resources>

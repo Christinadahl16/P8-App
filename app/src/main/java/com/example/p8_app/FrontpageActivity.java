@@ -1,16 +1,6 @@
 package com.example.p8_app;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-
-public class FrontpageActivity extends AppCompatActivity {
+/*public class FrontpageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +18,6 @@ public class FrontpageActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
-                        case R.id.products:
-                            selectedFragment = new ProductsFragment();
-                            break;
                         case R.id.aboutGrønttorvet:
                             selectedFragment = new AboutgtFragment();
                             break;
@@ -47,4 +34,25 @@ public class FrontpageActivity extends AppCompatActivity {
                     return true;
                 }
             };
-}
+
+    public class FarmerOverview extends AppCompatActivity {
+        private Button button2;
+        private Button button4;
+        private Button button5;
+
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+
+            button2 = (Button) findViewById(R.id.button2);
+            button4 = (Button) findViewById(R.id.button4);
+            button5 = (Button) findViewById(R.id.button5);
+
+
+                }
+            });
+        }
+    }
+}*/

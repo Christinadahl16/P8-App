@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -39,8 +38,6 @@ public class CreateActivity extends AppCompatActivity {
         password =findViewById(R.id.password);
         create =findViewById(R.id.login1);
 
-        /*Initialize auth variable*/
-        auth = FirebaseAuth.getInstance();
 
         /*Convert from text to a string*/
         create.setOnClickListener(new View.OnClickListener() {
@@ -72,14 +69,11 @@ public class CreateActivity extends AppCompatActivity {
                 /*If task is successful, then account created
                 * else the create account failed*/
                 if (task.isSuccessful()){
-                    Toast.makeText(CreateActivity.this, "Account created", Toast.LENGTH_SHORT).show();
-                    /*If create account is successful, start MainActivity*/
                     startActivity(new Intent(CreateActivity.this, MainActivity.class));
+                    Toast.makeText(CreateActivity.this, "Account created", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     Toast.makeText(CreateActivity.this, "Create account failed", Toast.LENGTH_SHORT).show();
-
-                    FirebaseDatabase.getInstance().getReference().child("Users").child("email").setValue("password");
 
                 }
             }
