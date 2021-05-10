@@ -1,6 +1,5 @@
 package com.example.p8_app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,14 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -25,8 +17,6 @@ public class CreateActivity extends AppCompatActivity {
     private Button create;
 
 
-    /*Firebase authentication variable*/
-    private FirebaseAuth auth;
 
 
     @Override
@@ -39,8 +29,7 @@ public class CreateActivity extends AppCompatActivity {
         password =findViewById(R.id.password);
         create =findViewById(R.id.login1);
 
-        /*Initialize auth variable*/
-        auth = FirebaseAuth.getInstance();
+
 
         /*Convert from text to a string*/
         create.setOnClickListener(new View.OnClickListener() {
@@ -64,26 +53,6 @@ public class CreateActivity extends AppCompatActivity {
     /*Create account method*/
     private void createAccount(String txt_email, String txt_password) {
 
-        /*Create account*/
-        auth.createUserWithEmailAndPassword(txt_email, txt_password).addOnCompleteListener(CreateActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                /*If task is successful, then account created
-                * else the create account failed*/
-                if (task.isSuccessful()){
-                    Toast.makeText(CreateActivity.this, "Account created", Toast.LENGTH_SHORT).show();
-                    /*If create account is successful, start MainActivity*/
-                    startActivity(new Intent(CreateActivity.this, MainActivity.class));
-                    finish();
-                } else {
-                    Toast.makeText(CreateActivity.this, "Create account failed", Toast.LENGTH_SHORT).show();
-
-                    FirebaseDatabase.getInstance().getReference().child("Users").child("email").setValue("password");
-
-                }
-            }
-        });
 
     }
 }
