@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.p8_app">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,12 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.P8App">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".StartActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".CreateActivity" />
-        <activity android:name=".FrontpageActivity"/>
         <activity
-            android:name=".StartActivity"
+            android:name=".FoodSelectionModel"
             android:label="@string/app_name"
             android:theme="@style/Theme.P8App.NoActionBar">
             <intent-filter>
@@ -33,7 +32,6 @@
                 <data
                     android:host="https://p8app.page.link"
                     android:scheme="http" />
-                android:scheme="https"/>
             </intent-filter>
         </activity>
     </application>

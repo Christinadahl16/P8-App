@@ -1,100 +1,61 @@
 package com.example.p8_app;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.tasks.Task;
+import java.util.HashMap;
+import java.util.Map;
+
+/*public class LoginActivity extends AppCompatActivity {
+
+        /*Create variables for email, password and create button
+        private EditText email;
+        private EditText password;
+        private Button login;
+
+        /*@Override
+        protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_login);
+
+                /*Link to activity_create2 XML file
+                email =findViewById(R.id.email);
+                password =findViewById(R.id.password);
+                login =findViewById(R.id.login1);
 
 
-public class LoginActivity extends AppCompatActivity {
+                /*login.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                Convert from text to a string
+                                String txt_email = email.getText().toString();
+                                String txt_password = password.getText().toString();
 
+                                /*Create account verification of email and password
+                                if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
+                                        Toast.makeText(LoginActivity.this, "Invalid e-mail", Toast.LENGTH_SHORT).show();
+                                } else if (txt_password.length() < 8) {
+                                        Toast.makeText(LoginActivity.this, "Password is too short", Toast.LENGTH_SHORT).show();
+                                } else {
+                                        loginCustomer(txt_email, txt_password);
+                                }
+                        }
+                });
+        }
 
-    /*Create variables for email, password and login button*/
-    private EditText email;
-    private EditText password;
-    private Button login;
-    private static final String TAG = "login";
+        private void loginCustomer(String txt_email, String txt_password) {
+        }
 
-
-    /*Firebase authentication variable*/
-    private FirebaseAuth auth;
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        /*Link to activity_login XML file*/
-        email =(EditText)findViewById(R.id.email);
-        password =(EditText)findViewById(R.id.password);
-        login =(Button)findViewById(R.id.login);
-
-        /*Initialize auth variable*/
-        auth = FirebaseAuth.getInstance();
-
-
-        /*storeNewUsersData();*/
-
-        /*When login button is clicked, call */
-        login.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("RestrictedApi")
-            @Override
-            public void onClick(View v) {
-                /*Convert text to string*/
-                String txt_email = email.getText().toString();
-                String txt_password = password.getText().toString();
-                loginUser(txt_email, txt_password);
-
-            }
-        });
-    }
-
-    /*loginUser method*/
-    private void loginUser(String txt_email, String txt_password) {
-        /*Authenticate signing in with email and password*/
-        auth.signInWithEmailAndPassword(txt_email, txt_password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                Toast.makeText(LoginActivity.this,"Login successful", Toast.LENGTH_SHORT).show();
-                /*If login is successful, start FrontpageActivity*/
-                startActivity(new Intent(LoginActivity.this, FrontpageActivity.class));
-                finish();
-
-            }
-        });
-    }
-
-    /*private void storeNewUsersData() {
-
-       // Reference to the database that stores the data
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users");
-
-        myRef.setValue("First record!");
-
-        // The DataSnapshot instance contains data from the Database location.
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String value = snapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        }); */
-    }
-
+                 */
