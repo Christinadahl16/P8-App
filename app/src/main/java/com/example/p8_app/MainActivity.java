@@ -8,8 +8,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.BreakIterator;
-
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addToDatabase = (Button) findViewById(R.id.addToDatabase);
 
         /*onCLickListeners for login button and addToDatabase button*/
-        login.setOnClickListener(this);
-        addToDatabase.setOnClickListener(this);
+        //login.setOnClickListener(this);
+        //addToDatabase.setOnClickListener(this);
 
         /*UDKOMMENTERET*/
         /*Login onClickListener

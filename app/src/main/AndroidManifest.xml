@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.P8App">
-        <activity android:name=".StartActivity"></activity>
+        <activity android:name=".FoodSelectionModel"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".CreateActivity" />
         <activity
-            android:name=".FoodSelectionModel"
+            android:name=".StartActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.P8App.NoActionBar">
             <intent-filter>
