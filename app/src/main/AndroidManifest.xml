@@ -11,11 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.P8App">
-        <activity android:name=".FoodSelectionModel"></activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".CreateActivity" />
-        <activity
-            android:name=".StartActivity"
+        <activity android:name=".UserLogin"
             android:label="@string/app_name"
             android:theme="@style/Theme.P8App.NoActionBar">
             <intent-filter>
@@ -23,17 +19,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="https://p8app.page.link"
-                    android:scheme="http" />
-            </intent-filter>
         </activity>
+        <activity android:name=".FoodSelectionModel" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".CreateActivity" />
+        <activity android:name=".StartActivity"/>
     </application>
 
 </manifest>
