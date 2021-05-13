@@ -103,6 +103,7 @@
         android:layout_marginEnd="36dp"
         android:layout_marginRight="36dp"
         android:layout_marginBottom="80dp"
+        android:onClick="ShowCreateUserActivity"
         android:backgroundTint="@color/Blue"
         android:text="Create new account"
         android:textColor="@color/black"

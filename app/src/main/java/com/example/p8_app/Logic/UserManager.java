@@ -1,5 +1,7 @@
 package com.example.p8_app.Logic;
 
+import com.example.p8_app.Models.CustomerModel;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +14,7 @@ public class UserManager implements IUserManager {
     }
 
     private void PasswordValidToException(String password) throws Exception{
-        if (password.length() < 8){
+        if (password.length() < 4){
             throw new Exception("Password Too Short");
         }
     }
@@ -27,7 +29,7 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public void TryLogin(String email, String password) throws Exception {
+    public boolean TryLogin(String email, String password) throws Exception {
         EmailValidToException(email);
         PasswordValidToException(password);
 
@@ -36,6 +38,20 @@ public class UserManager implements IUserManager {
         if (!loggedIn){
             throw new Exception("Wrong Email/Password");
         }
+
+        return true;
+    }
+
+    @Override
+    public boolean TryRegister(CustomerModel customerModel) throws Exception {
+        EmailValidToException(customerModel.getEmail());
+        PasswordValidToException(customerModel.getPassword());
+        if (customerModel.getName().length() == 0)
+        {
+            throw new Exception("Name is required");
+        }
+
+        return _apiInterface.Register(customerModel);
     }
 
 }

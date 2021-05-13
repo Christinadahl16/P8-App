@@ -9,11 +9,33 @@ import java.util.Objects;
 public class CustomerModel {
     private String email;
     private String password;
+    private String name;
+    private String authKey;
+
 
     /*Constructors*/
     public CustomerModel(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public CustomerModel(String email, String name, String authKey) {
+        this.email = email;
+        this.name = name;
+        this.authKey = authKey;
+    }
+
+    public String getAuthKey(){
+        return authKey;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void SetName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

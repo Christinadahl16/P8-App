@@ -1,5 +1,9 @@
 package com.example.p8_app.Logic;
 
+import com.example.p8_app.Models.CustomerModel;
+
 public interface IUserManager {
-    void TryLogin(String email, String password) throws Exception;
+    boolean TryLogin(String email, String password) throws Exception;
+
+    boolean TryRegister(CustomerModel customerModel) throws Exception;
 }

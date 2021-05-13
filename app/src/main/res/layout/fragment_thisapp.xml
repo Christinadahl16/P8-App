@@ -6,24 +6,6 @@
     android:background="@color/white">
 
 
-    <Button
-        android:id="@+id/signOut5"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/profile"
-        android:layout_alignLeft="@+id/profile"
-        android:layout_alignBottom="@+id/profile"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="191dp"
-        android:layout_marginLeft="191dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginBottom="58dp"
-        android:backgroundTint="@color/Peach"
-        android:text="Sign out"
-        android:textColor="@color/black" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"

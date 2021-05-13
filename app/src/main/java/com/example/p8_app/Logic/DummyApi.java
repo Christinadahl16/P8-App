@@ -34,4 +34,9 @@ public class DummyApi implements IApiInterface {
 
         return users.indexOf(model) >= 0;
     }
+
+    @Override
+    public boolean Register(CustomerModel customerModel) throws Exception {
+        return false;
+    }
 }
