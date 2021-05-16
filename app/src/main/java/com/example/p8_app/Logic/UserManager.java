@@ -13,12 +13,14 @@ public class UserManager implements IUserManager {
         _apiInterface = apiInterface;
     }
 
+    /*Password validation*/
     private void PasswordValidToException(String password) throws Exception{
         if (password.length() < 4){
             throw new Exception("Password Too Short");
         }
     }
 
+    /*Email validation*/
     private void EmailValidToException(String email) throws Exception{
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -28,6 +30,7 @@ public class UserManager implements IUserManager {
         }
     }
 
+    /*If provided with wrong email/password when logging in, throw exception*/
     @Override
     public boolean TryLogin(String email, String password) throws Exception {
         EmailValidToException(email);
@@ -42,6 +45,7 @@ public class UserManager implements IUserManager {
         return true;
     }
 
+    /*If name textfield is empty when creating account, throw exception*/
     @Override
     public boolean TryRegister(CustomerModel customerModel) throws Exception {
         EmailValidToException(customerModel.getEmail());

@@ -6,6 +6,7 @@
         android:layout_height="match_parent"
         tools:context=".UserLogin">
 
+        <!--This is the first page the user meet when launching apa-->
         <!--Headline TextView-->
         <TextView
             android:id="@+id/textView"

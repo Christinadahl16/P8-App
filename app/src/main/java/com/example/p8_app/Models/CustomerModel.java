@@ -25,10 +25,11 @@ public class CustomerModel {
         this.authKey = authKey;
     }
 
+    /*Setters and getters*/
     public String getAuthKey(){
         return authKey;
     }
-
+    
     public String getName() {
 
         return name;
@@ -58,6 +59,7 @@ public class CustomerModel {
         this.password = password;
     }
 
+    /*Minimum required API for application to run*/
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {

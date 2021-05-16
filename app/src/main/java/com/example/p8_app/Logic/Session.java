@@ -2,11 +2,13 @@ package com.example.p8_app.Logic;
 
 
 import com.example.p8_app.Models.CustomerModel;
+import com.example.p8_app.Models.FoodSelectionModel;
 
 public class Session {
     //public final static long MILLIS_PER_DAY = 24 * 60 * 60 * 1000L;
     private static CustomerModel _customerModel;
     //private static Date loginDate;
+    private static FoodSelectionModel _foodSelectionModel;
 
 
     public static void setCustomerModel(CustomerModel customerModel){

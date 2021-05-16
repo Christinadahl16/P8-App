@@ -47,7 +47,7 @@ public class FarmerOverview extends AppCompatActivity implements View.OnClickLis
                 break;*/
         }
 
-
+    /*SignOut button*/
     private void openSignOut() {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);

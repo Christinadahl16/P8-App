@@ -33,11 +33,13 @@ public class FrontpageActivity extends AppCompatActivity {
         tryReturnToLogin();
     }
 
+    /*Signout button - when signing out, destroy current session*/
     public void signOut(View v){
         Session.destroy();
         tryReturnToLogin();
     }
 
+    /*If session is not logged in, start go to UserLogin class, else welcome the user with message*/
     private void tryReturnToLogin(){
         if (!Session.isLoggedIn()){
             startActivity(new Intent(FrontpageActivity.this, UserLogin.class));
@@ -53,6 +55,7 @@ public class FrontpageActivity extends AppCompatActivity {
         }
     }
 
+    /*Navigation bar*/
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
