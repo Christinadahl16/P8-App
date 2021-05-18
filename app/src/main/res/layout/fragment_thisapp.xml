@@ -6,24 +6,6 @@
     android:background="@color/white">
 
 
-    <Button
-        android:id="@+id/signOut5"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/profile"
-        android:layout_alignLeft="@+id/profile"
-        android:layout_alignBottom="@+id/profile"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="191dp"
-        android:layout_marginLeft="191dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginBottom="58dp"
-        android:backgroundTint="@color/Peach"
-        android:text="Sign out"
-        android:textColor="@color/black" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
@@ -42,10 +24,8 @@
         android:layout_marginBottom="179dp"
         android:text="This application is built to support the local farmers market at Frederikstorv in Aalborg Municipality. When you choose to buy locally produced and sustainable food, you support your community and the farms and farmers within it.
 To use this application, you must: 1) select the desired produce, 2) place the produce into your shopping basket, 3) select the day for your pick-up, 4) pay for your produce, 5) pick up the produce at the market.   "
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        />
 
     <ImageView
         android:id="@+id/imageView4"

@@ -26,24 +26,6 @@
         android:textColor="@color/black"
         app:backgroundTint="#4CAF50" />
 
-    <Button
-        android:id="@+id/signOut4"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_alignStart="@+id/profile"
-        android:layout_alignLeft="@+id/profile"
-        android:layout_alignEnd="@+id/profile"
-        android:layout_alignRight="@+id/profile"
-        android:layout_marginStart="157dp"
-        android:layout_marginLeft="157dp"
-        android:layout_marginEnd="-130dp"
-        android:layout_marginRight="-130dp"
-        android:layout_marginBottom="68dp"
-        android:backgroundTint="@color/Peach"
-        android:text="Sign out"
-        android:textColor="@color/black"
-        app:iconTint="#FFFFFF" />
-
     <EditText
         android:id="@+id/email2"
         android:layout_width="match_parent"
