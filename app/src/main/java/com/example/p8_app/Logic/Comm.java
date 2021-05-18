@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class Comm {
 
-    private static String url = "http://192.168.10.10/api/";
+    private static String url = "http://192.168.0.88/api/";
 
     private static URL GetUrl(String subLink) throws MalformedURLException {
         return new URL(url + subLink);

@@ -16,4 +16,5 @@
     <string name="FoodItemName">Food item name</string>
     <string name="FoodItemPrice">Food item price</string>
     <string name="FoodItemOrigin">Food item origin</string>
+    <string name="organic_cherries">Organic cherries</string>
 </resources>
