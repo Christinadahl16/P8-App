@@ -47,6 +47,7 @@
         android:layout_marginStart="10dp"
         android:layout_width="177dp"
         android:layout_height="38dp"
+        android:onClick="SelectFarmer"
         android:id="@+id/selectFarmerButton"
         android:text="Se udvalg"
         android:visibility="visible" />

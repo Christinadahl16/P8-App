@@ -42,8 +42,12 @@ public class FarmerOverview extends Fragment {
         return view;
     }
 
+    public void SelectFarmer(View view) {
 
-    private int getImageID(String imageName){
+
+    }
+
+   private int getImageID(String imageName){
         return getActivity().getResources()
                 .getIdentifier(imageName, "drawable", getActivity().getPackageName());
     }
