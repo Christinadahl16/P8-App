@@ -1,159 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+
     android:fillViewport="true"
     tools:context=".ProductsFragment"
     tools:layout="@layout/fragment_products">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/calmgreen">
-
-    <TextView
-        android:id="@+id/products1"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="190dp"
-        android:layout_marginRight="190dp"
-        android:text="Produkter"
-        android:textSize="30sp" />
+        android:id="@+id/recycler_view"/>
+</LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="76dp"
-        android:layout_height="55dp"
-        android:layout_below="@+id/products1"
-        android:layout_alignStart="@+id/products1"
-        android:layout_alignLeft="@+id/products1"
-        android:layout_marginStart="-16dp"
-        android:layout_marginLeft="-16dp"
-        android:layout_marginTop="51dp"
-        app:srcCompat="@drawable/aebler" />
-
-    <Button
-        android:id="@+id/increase"
-        android:layout_width="54dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/integer_number"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="-17dp"
-        android:layout_marginRight="-17dp"
-        android:layout_toStartOf="@+id/integer_number"
-        android:layout_toLeftOf="@+id/integer_number"
-        android:backgroundTint="@color/black"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="30sp" />
-
-    <Button
-        android:id="@+id/increase2"
-        android:layout_width="58dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView6"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="133dp"
-        android:layout_marginRight="133dp"
-        android:backgroundTint="@color/black"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="30sp" />
-
-    <EditText
-        android:id="@+id/integer_number"
-        android:layout_width="39dp"
-        android:layout_height="64dp"
-        android:layout_below="@+id/products1"
-        android:layout_alignStart="@+id/imageView5"
-        android:layout_alignLeft="@+id/imageView5"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="125dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="428dp"
-        android:inputType="number"
-        android:text="0"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/integer_number2"
-        android:layout_width="39dp"
-        android:layout_height="64dp"
-        android:layout_below="@+id/products1"
-        android:layout_alignStart="@+id/imageView5"
-        android:layout_alignLeft="@+id/imageView5"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="211dp"
-        android:layout_marginLeft="211dp"
-        android:layout_marginTop="122dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="431dp"
-        android:inputType="number"
-        android:text="0"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/decrease"
-        android:layout_width="54dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/integer_number"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginBottom="17dp"
-        android:layout_toEndOf="@+id/integer_number"
-        android:layout_toRightOf="@+id/integer_number"
-        android:backgroundTint="@color/black"
-        android:text="-"
-        android:textColor="@color/white"
-        android:textSize="30sp" />
-
-    <Button
-        android:id="@+id/decrease2"
-        android:layout_width="53dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/integer_number"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginBottom="13dp"
-        android:layout_toEndOf="@+id/integer_number2"
-        android:layout_toRightOf="@+id/integer_number2"
-        android:backgroundTint="@color/black"
-        android:text="-"
-        android:textColor="@color/white"
-        android:textSize="30sp" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="66dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/products1"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="117dp"
-        android:layout_marginLeft="117dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="77dp"
-        android:layout_marginRight="77dp"
-        android:layout_toEndOf="@+id/imageView5"
-        android:layout_toRightOf="@+id/imageView5"
-        android:visibility="visible"
-        app:srcCompat="@drawable/agurk"
-        tools:visibility="visible" />
-
-</RelativeLayout>
-
-</ScrollView>

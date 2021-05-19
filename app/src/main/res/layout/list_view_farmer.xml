@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!--Farmer imageView (left)-->
+    <ImageView
+        android:id="@+id/FarmerImage"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <TextView
+        android:id="@+id/FarmerName"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        />
+    <TextView
+        android:id="@+id/FarmerDetails"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="170dp"
+        android:layout_height="148dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        />
+    <Button
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="177dp"
+        android:layout_height="38dp"
+        android:id="@+id/selectFarmerButton"
+        android:text="Se udvalg"
+        android:visibility="visible" />
+</RelativeLayout>

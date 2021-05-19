@@ -51,7 +51,6 @@ public class FrontpageActivity extends AppCompatActivity {
 
             TextView welcome = findViewById(R.id.welcomeMessage);
             welcome.setText("Welcome "+ username);
-
         }
     }
 
@@ -63,8 +62,8 @@ public class FrontpageActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
-                        case R.id.products:
-                            selectedFragment = new ProductsFragment();
+                        case R.id.farmeroverview:
+                            selectedFragment = new FarmerOverview();
                             break;
                         case R.id.aboutGrønttorvet:
                             selectedFragment = new AboutgtFragment();
