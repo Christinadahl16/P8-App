@@ -2,6 +2,7 @@ package com.example.p8_app.Logic;
 
 
 import com.example.p8_app.Models.CustomerModel;
+import com.example.p8_app.Models.FarmerModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,16 @@ public class DummyApi implements IApiInterface {
         );
 
         return customerModelList;
+    }
+
+    @Override
+    public List<FarmerModel> GetFarmers() throws Exception {
+        return null;
+    }
+
+    @Override
+    public boolean AddFarmer(FarmerModel farmerModel) throws Exception {
+        return false;
     }
 
     @Override

@@ -12,27 +12,35 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.p8_app.Models.FarmerModel;
 import com.example.p8_app.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FarmerViewAdaptor extends RecyclerView.Adapter<FarmerViewAdaptor.MyViewHolder> {
 private List<FarmerModel> mDataList;
 
-public class MyViewHolder extends RecyclerView.ViewHolder{
-    public TextView name,details;
-    public Button selectFarmerButton;
-    public ImageView imageView;
+    public class MyViewHolder extends RecyclerView.ViewHolder{
+        public TextView name,details;
+        public Button selectFarmerButton;
+        public ImageView imageView;
 
-    public MyViewHolder(View view){
-        super(view);
-        name = (TextView) view.findViewById(R.id.FarmerName);
-        details = (TextView) view.findViewById(R.id.FarmerDetails);
-        imageView = (ImageView) view.findViewById(R.id.FarmerImage);
-        selectFarmerButton = (Button) view.findViewById(R.id.selectFarmerButton);
+        private ArrayList<FarmerModel> mData;
+
+        public MyViewHolder(View view){
+            super(view);
+            name = (TextView) view.findViewById(R.id.FarmerName);
+            details = (TextView) view.findViewById(R.id.FarmerDetails);
+            imageView = (ImageView) view.findViewById(R.id.FarmerImage);
+            selectFarmerButton = (Button) view.findViewById(R.id.selectFarmerButton);
+        }
     }
-}
 
     public FarmerViewAdaptor(List<FarmerModel> dataList){
-        this.mDataList = dataList;
+        update(dataList);
+    }
+
+    public void update(List<FarmerModel> data) {
+        this.mDataList = data;
+        notifyDataSetChanged();
     }
 
 

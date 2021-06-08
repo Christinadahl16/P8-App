@@ -39,6 +39,12 @@ public class FrontpageActivity extends AppCompatActivity {
         tryReturnToLogin();
     }
 
+
+    public void AddFarmer(View view) {
+        startActivity(new Intent(FrontpageActivity.this, FarmerAdditionActivity.class));
+        finish();
+    }
+
     /*If session is not logged in, start go to UserLogin class, else welcome the user with message*/
     private void tryReturnToLogin(){
         if (!Session.isLoggedIn()){

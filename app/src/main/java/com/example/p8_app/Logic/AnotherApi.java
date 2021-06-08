@@ -5,7 +5,9 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.example.p8_app.Models.CustomerModel;
+import com.example.p8_app.Models.FarmerModel;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -54,6 +56,51 @@ public class AnotherApi implements IApiInterface {
         }
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean AddFarmer(FarmerModel farmerModel) throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("name", farmerModel.GetName());
+        map.put("description", farmerModel.GetDetails());
+        map.put("image", Integer.toString(farmerModel.GetImage()));
+
+        try {
+            String response = comm.sendSecurePost("farmer", map);
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public List<FarmerModel> GetFarmers() throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        List<FarmerModel> farmers =  new ArrayList<FarmerModel>();
+        try {
+            String response = comm.sendSecureGet("farmers", map);
+
+            JSONArray jsonArray = new JSONArray(response);
+            int jsonArrayLength = jsonArray.length();
+
+            for (int i = 0; i < jsonArrayLength; i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                FarmerModel farmerModel = new FarmerModel(
+                        jsonObject.getString("id"),
+                        jsonObject.getString("name"),
+                        jsonObject.getString("description"),
+                        Integer.parseInt(jsonObject.getString("image"))
+                        );
+                farmers.add(farmerModel);
+            }
+            return farmers;
+        } catch (Exception exception) {
+            return new ArrayList<FarmerModel>();
+        }
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override

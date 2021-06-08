@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.p8_app.Logic.AnotherApi;
+import com.example.p8_app.Logic.IApiInterface;
 import com.example.p8_app.Models.FarmerModel;
 import com.example.p8_app.adapters.FarmerViewAdaptor;
 
@@ -22,13 +24,13 @@ import java.util.List;
 /*View AboutgtFragment*/
 public class FarmerOverview extends Fragment {
     private List<FarmerModel> mDataList = new ArrayList<>();
-
+    RecyclerView mRecyclerView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_farmeroverview, container, false);
-        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.Farmer_recycler_view);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.Farmer_recycler_view);
 
         FarmerViewAdaptor mAdapter = new FarmerViewAdaptor(mDataList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
@@ -37,10 +39,12 @@ public class FarmerOverview extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
 
-        PrepareList();
+        PrepareList(mAdapter);
 
         return view;
     }
+
+
 
     public void SelectFarmer(View view) {
 
@@ -52,10 +56,31 @@ public class FarmerOverview extends Fragment {
                 .getIdentifier(imageName, "drawable", getActivity().getPackageName());
     }
 
-    private void PrepareList(){
 
-        mDataList.add(new FarmerModel("1", "Farmer 1", "holder til ved den lille by Y nær Aalborg midtby. Farmer XXX er kendt for sit store udvalg af økologiske grøntsager, fokus på bæredygtighed og gode service.", getImageID("farmer1")));
-        mDataList.add(new FarmerModel("2", "Farmer 2", "holder til ved den lille by Y nær Aalborg midtby. Farmer XXX er kendt for sit store udvalg af økologiske grøntsager, fokus på bæredygtighed og gode service.", getImageID("farmer4")));
+    private void PrepareList(FarmerViewAdaptor mAdapter){
+
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                try{
+                    IApiInterface api = new AnotherApi();
+                    mDataList = api.GetFarmers();
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            mAdapter.update(mDataList);
+                        }
+                    });
+                } catch (Exception ex){
+
+                }
+            }
+        });
+
+        thread.start();
+
     }
 }
 

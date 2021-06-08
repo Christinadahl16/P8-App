@@ -14,6 +14,13 @@ public class FarmerModel {
         SetDetails(details);
         SetName(name);
         SetImage(imageID);
+        SetID(id);
+    }
+
+    public FarmerModel(String name, String details, int imageID){
+        SetDetails(details);
+        SetName(name);
+        SetImage(imageID);
     }
 
 

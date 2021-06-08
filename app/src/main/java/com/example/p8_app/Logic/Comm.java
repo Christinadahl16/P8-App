@@ -34,6 +34,79 @@ public class Comm {
         return parametersString.toString();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public String sendSecurePost(String address, Map<String, String> parameters) throws Exception {
+
+        String urlParameters = MapToParameters(parameters);
+        byte[] postData  = urlParameters.getBytes( StandardCharsets.UTF_8 );
+        int    postDataLength = postData.length;
+
+        URL url = GetUrl(address);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Accept", "application/json");
+        conn.setRequestProperty("Authorization", "Bearer "+Session.getAuth());
+        conn.setRequestProperty( "Content-Length", Integer.toString( postDataLength ));
+        conn.setUseCaches( false );
+        conn.setDoOutput(true);
+        conn.getOutputStream().write(postData);
+
+
+        if (conn.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + conn.getResponseCode());
+        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (conn.getInputStream())));
+
+        String output;
+
+        StringBuilder sb = new StringBuilder();
+
+        while ((output = br.readLine()) != null) {
+            sb.append(output);
+        }
+        conn.disconnect();
+
+        return sb.toString();
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public String sendSecureGet(String address, Map<String, String> parameters) throws Exception {
+
+        String urlParameters = MapToParameters(parameters);
+
+        URL url = GetUrl(address);
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestProperty("Authorization", "Bearer "+Session.getAuth());
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Accept", "application/json");
+
+        if (conn.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + conn.getResponseCode());
+        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (conn.getInputStream())));
+
+        String output;
+
+        StringBuilder sb = new StringBuilder();
+
+        while ((output = br.readLine()) != null) {
+            sb.append(output);
+        }
+        conn.disconnect();
+
+        return sb.toString();
+
+    }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
