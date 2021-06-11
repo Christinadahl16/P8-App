@@ -3,6 +3,7 @@ package com.example.p8_app.Logic;
 
 import com.example.p8_app.Models.CustomerModel;
 import com.example.p8_app.Models.FarmerModel;
+import com.example.p8_app.Models.ProductModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,31 @@ public class DummyApi implements IApiInterface {
 
     @Override
     public boolean UpdateFarmer(FarmerModel farmerModel) throws Exception {
+        return false;
+    }
+
+    @Override
+    public ProductModel GetProduct(String id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<ProductModel> GetProducts() throws Exception {
+        return null;
+    }
+
+    @Override
+    public boolean DeleteProduct(ProductModel productModel) throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean AddProduct(ProductModel productModel) throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean UpdateProduct(ProductModel productModel) throws Exception {
         return false;
     }
 

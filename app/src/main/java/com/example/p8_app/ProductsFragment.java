@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.p8_app.Logic.AnotherApi;
+import com.example.p8_app.Logic.IApiInterface;
 import com.example.p8_app.Models.ProductModel;
+import com.example.p8_app.adapters.FarmerViewAdaptor;
 import com.example.p8_app.adapters.ListViewAdaptor;
 
 import java.util.ArrayList;
@@ -37,7 +40,7 @@ public class ProductsFragment extends Fragment {
                 mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setAdapter(mAdapter);
 
-                PrepareList();
+            PrepareList(mAdapter);
 
                return view;
         }
@@ -47,14 +50,30 @@ public class ProductsFragment extends Fragment {
                         .getIdentifier(imageName, "drawable", getActivity().getPackageName());
         }
 
-        private void PrepareList(){
+        private void PrepareList(ListViewAdaptor mAdapter){
 
-                mDataList.add(new ProductModel("Apple", (float) 2.2, getImageID("aebler"), "1"));
-                mDataList.add(new ProductModel("Blomme", (float) 2.2, getImageID("blomme"), "1"));
-                mDataList.add(new ProductModel("Agurk", (float) 2.2, getImageID("agurk"), "1"));
-                mDataList.add(new ProductModel("Chili", (float) 2.2, getImageID("chili"), "2"));
-                mDataList.add(new ProductModel("Dild", (float) 2.2, getImageID("dild"), "2"));
-                mDataList.add(new ProductModel("Agurk", (float) 2.2, getImageID("agurk"), "2"));
-        }
+
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    try{
+                        IApiInterface api = new AnotherApi();
+                        mDataList = api.GetProducts();
+                        getActivity().runOnUiThread(new Runnable() {
+                            public void run() {
+                                mAdapter.update(mDataList);
+                            }
+                        });
+                    } catch (Exception ex){
+
+                    }
+                }
+            });
+
+            thread.start();
+
+    }
 }
 

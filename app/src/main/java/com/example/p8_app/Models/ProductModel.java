@@ -2,19 +2,47 @@ package com.example.p8_app.Models;
 
 public class ProductModel {
     String Name;
-    int ImageID;
+    String Image;
     float Price;
     String Farmer;
+    String Details;
+    String ID;
+
     public ProductModel(){
 
     }
 
-    public ProductModel(String name, float price, int imageID, String farmer){
+    public ProductModel(String ID, String name, float price, String details, String imageID, String farmer){
         setPrice(price);
         SetName(name);
         SetImage(imageID);
-        Farmer = farmer;
+        SetID(ID);
+        SetDetails(details);
+        setFarmer(farmer);
     }
+
+    public ProductModel(String name, float price, String details, String imageID, String farmer){
+        setPrice(price);
+        SetName(name);
+        SetImage(imageID);
+        SetDetails(details);
+        setFarmer(farmer);
+    }
+
+
+
+    public void SetID(String id){
+        ID = id;
+    }
+
+    public String GetID(){
+        return ID;
+    }
+
+    public void SetDetails(String details){
+        Details = details;
+    }
+
 
     public void setFarmer(String farmer){
         Farmer = farmer;
@@ -28,8 +56,8 @@ public class ProductModel {
         Name = name;
     }
 
-    public void SetImage(int imageID){
-        ImageID = imageID;
+    public void SetImage(String imageID){
+        Image = imageID;
     }
 
     public String GetName(){
@@ -45,7 +73,11 @@ public class ProductModel {
         return Price;
     }
 
-    public int GetImage(){
-        return ImageID;
+    public String GetDetails(){
+        return Details;
+    }
+
+    public String GetImage(){
+        return Image;
     }
 }

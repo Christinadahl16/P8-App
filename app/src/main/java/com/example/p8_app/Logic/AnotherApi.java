@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.p8_app.Models.CustomerModel;
 import com.example.p8_app.Models.FarmerModel;
+import com.example.p8_app.Models.ProductModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,34 +30,6 @@ public class AnotherApi implements IApiInterface {
         List<CustomerModel> customerModelList = new ArrayList<CustomerModel>();
 
         return customerModelList;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    public boolean login(String email, String password) {
-
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("email", email);
-        map.put("password", password);
-
-        try {
-            String response = comm.sendPost("login", map);
-            JSONObject obj = new JSONObject(response);
-
-            JSONObject user = obj.getJSONObject("user");
-            String token = obj.getString("access_token");
-
-            Session.setCustomerModel(new CustomerModel(user.getString("email"),
-                    user.getString("name"),
-                    token
-                    ));
-
-            return true;
-        } catch (Exception exception) {
-            return false;
-        }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -117,8 +90,6 @@ public class AnotherApi implements IApiInterface {
     }
 
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public List<FarmerModel> GetFarmers() throws Exception {
@@ -171,6 +142,151 @@ public class AnotherApi implements IApiInterface {
             return new FarmerModel();
         }
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public ProductModel GetProduct(String id) throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", id);
+
+        try {
+            String response = comm.sendSecureGet("product", map);
+
+            JSONObject jsonObject = new JSONObject(response);
+
+            return new ProductModel(
+                    jsonObject.getString("id"),
+                    jsonObject.getString("name"),
+                    Float.parseFloat(jsonObject.getString("price")),
+                    jsonObject.getString("description"),
+                    jsonObject.getString("imageStr"),
+                    jsonObject.getString("farmer_id")
+            );
+
+
+
+        } catch (Exception exception) {
+            return new ProductModel();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public List<ProductModel> GetProducts() throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        List<ProductModel> products =  new ArrayList<ProductModel>();
+        try {
+            String response = comm.sendSecureGet("products", map);
+
+            JSONArray jsonArray = new JSONArray(response);
+            int jsonArrayLength = jsonArray.length();
+
+            for (int i = 0; i < jsonArrayLength; i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                ProductModel productModel = new  ProductModel(
+                        jsonObject.getString("id"),
+                        jsonObject.getString("name"),
+                        Float.parseFloat(jsonObject.getString("price")),
+                        jsonObject.getString("description"),
+                        jsonObject.getString("imageStr"),
+                        jsonObject.getString("farmer_id")
+            );
+                products.add(productModel);
+            }
+            return products;
+        } catch (Exception exception) {
+            return new ArrayList<ProductModel>();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean DeleteProduct(ProductModel productModel) throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", productModel.GetID());
+
+        try {
+            comm.sendSecureDelete("product", map);
+
+            return true;
+
+        } catch (Exception exception) {
+            return  false;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean AddProduct(ProductModel productModel) throws Exception {
+        PostJob postJob = new PostJob("product");
+        postJob.AddText("name", productModel.GetName());
+        postJob.AddText("description", productModel.GetDetails());
+        postJob.SetImage("image", productModel.GetImage());
+        postJob.SetImage("farmer_id", productModel.GetFarmer());
+        postJob.SetImage("price", productModel.GetPrice().toString());
+
+        try {
+            postJob.sendSecurePost();
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean UpdateProduct(ProductModel productModel) throws Exception {
+        PostJob postJob = new PostJob("product");
+        postJob.setID(productModel.GetID());
+
+        postJob.AddText("name", productModel.GetName());
+        postJob.AddText("description", productModel.GetDetails());
+        postJob.SetImage("image", productModel.GetImage());
+        postJob.SetImage("farmer_id", productModel.GetFarmer());
+        postJob.SetImage("price", productModel.GetPrice().toString());
+
+
+        try {
+            postJob.sendSecurePost();
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean login(String email, String password) {
+
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("email", email);
+        map.put("password", password);
+
+        try {
+            String response = comm.sendPost("login", map);
+            JSONObject obj = new JSONObject(response);
+
+            JSONObject user = obj.getJSONObject("user");
+            String token = obj.getString("access_token");
+
+            Session.setCustomerModel(new CustomerModel(user.getString("email"),
+                    user.getString("name"),
+                    token
+            ));
+
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+
+    }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
