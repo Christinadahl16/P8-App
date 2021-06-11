@@ -21,6 +21,17 @@ use App\Http\Controllers\AuthController;
 
 Route::middleware('auth:sanctum')->post('/farmer', 'App\Http\Controllers\FarmerController@store');
 Route::middleware('auth:sanctum')->get('/farmers', 'App\Http\Controllers\FarmerController@index');
+Route::middleware('auth:sanctum')->get('/farmer/{id}', 'App\Http\Controllers\FarmerController@show');
+Route::middleware('auth:sanctum')->put('/farmer/{id}', 'App\Http\Controllers\FarmerController@update');
+Route::middleware('auth:sanctum')->delete('/farmer/{id}', 'App\Http\Controllers\FarmerController@destroy');
+
+
+Route::middleware('auth:sanctum')->post('/product', 'App\Http\Controllers\ProductController@store');
+Route::middleware('auth:sanctum')->get('/products/{id}', 'App\Http\Controllers\ProductController@index');
+Route::middleware('auth:sanctum')->get('/product/{id}', 'App\Http\Controllers\ProductController@show');
+Route::middleware('auth:sanctum')->put('/product/{id}', 'App\Http\Controllers\ProductController@update');
+Route::middleware('auth:sanctum')->delete('/product/{id}', 'App\Http\Controllers\ProductController@destroy');
+
 
 Route::prefix('/')->group(function(){
     Route::post('/login', 'App\Http\Controllers\LoginController@index');

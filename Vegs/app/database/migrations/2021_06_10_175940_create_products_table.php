@@ -20,7 +20,9 @@ class CreateProductsTable extends Migration
             $table->string("description");
             $table->string("image");
             $table->double('price', 8, 2);
-            $table->foreignId('farmer_id')->constrained();
+            $table->foreignId('farmer_id')->constrained()
+                                                ->onUpdate('cascade')
+                                                ->onDelete('cascade');
         });
     }
 

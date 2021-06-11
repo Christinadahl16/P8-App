@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Farmer;
+
 use Illuminate\Http\Request;
 
-class FarmerController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,12 +30,28 @@ class FarmerController extends Controller
             'cover_image' => 'image|nullable|max:1999',
         ]);
 
-        $fileNameToStore = 'noimage.jpg';
-        $post = new Farmer;
+        if ($request->hasFile('cover_image')){
+            $fileNameWithExt = $request->file('cover_image')->getClientOriginalImage();
+
+            $fileName = pathInfo($fileNameWithExt, PATHINFO_FILENAME);
+
+            $extention = $request->file('cover_image')->getOriginalExtention();
+
+            $fileNameToStore = $fileName.'_'.time().'_'.$extention;
+
+            $path = $request->file('cover_image')->storeAs('public/category/cover_images', $fileNameToStore);
+
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+        $post = new Post;
         $post->name = $request['name'];
         $post->description = $request['description'];
+        $post->user_id = Auth()->User()->id;
         $post->cover_image = $fileNameToStore;
         $post->save();
+
     }
 
     /**

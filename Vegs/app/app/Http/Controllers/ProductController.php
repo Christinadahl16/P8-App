@@ -1,22 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Farmer;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class FarmerController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
 
-         $items = Farmer::orderByDesc('updated_at')->get();
+         $items = Product::orderByDesc('updated_at')->where("farmer_id", $id)->get();
 
         foreach ($items as $message) {
                  if (Storage::exists($message->image)) {
@@ -42,20 +41,30 @@ class FarmerController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
+            'price' => 'required',
+            'farmer_id' => 'required',
             'image' => 'required',
         ]);
 
+
+
         $imageStr =  $request->file('image');
 
+
         $mime_type = $imageStr->getClientOriginalExtension();
+
+
         $imageOriginalName = uniqid().".".$mime_type;
         $path = $request->file('image')->storeAs('public/', $imageOriginalName);
 
 
 
-        $post = new Farmer;
+
+        $post = new Product;
         $post->name = $request['name'];
         $post->description = $request['description'];
+        $post->price = $request['price'];
+        $post->farmer_id = $request['farmer_id'];
         $post->image = $path;
         $post->save();
 
@@ -69,7 +78,7 @@ class FarmerController extends Controller
      */
     public function show($id)
     {
-         $item = Farmer::find($id);
+         $item = Product::find($id);
 
           if (Storage::exists($item->image))
               $item->imageStr =  asset(Storage::url($item->image));
@@ -90,27 +99,35 @@ class FarmerController extends Controller
     {
 
 
-            $this->validate($request, [
-                    'name' => 'required',
-                    'description' => 'required',
-                    'image' => 'required',
-                ]);
+                 $this->validate($request, [
+                        'name' => 'required',
+                        'description' => 'required',
+                        'price' => 'required',
+                        'farmer_id' => 'required',
+                        'image' => 'required',
+                    ]);
 
 
 
-                $imageStr =  $request->file('image');
-
-                $mime_type = $imageStr->getClientOriginalExtension();
-                $imageOriginalName = uniqid().".".$mime_type;
-                $path = $request->file('image')->storeAs('public/', $imageOriginalName);
+                    $imageStr =  $request->file('image');
 
 
+                    $mime_type = $imageStr->getClientOriginalExtension();
 
-                $post = Farmer::find($id);
-                $post->name = $request['name'];
-                $post->description = $request['description'];
-                $post->image = $path;
-                $post->save();
+
+                    $imageOriginalName = uniqid().".".$mime_type;
+                    $path = $request->file('image')->storeAs('public/', $imageOriginalName);
+
+
+
+
+                       $post = Product::find($id);
+                    $post->name = $request['name'];
+                    $post->description = $request['description'];
+                    $post->price = $request['price'];
+                    $post->farmer_id = $request['farmer_id'];
+                    $post->image = $path;
+                    $post->save();
     }
 
     /**
@@ -121,8 +138,8 @@ class FarmerController extends Controller
      */
     public function destroy($id)
     {
-       $Farmer = Farmer::find($id);
+       $Product = Product::find($id);
 
-       $Farmer->delete();
+       $Product->delete();
     }
 }
