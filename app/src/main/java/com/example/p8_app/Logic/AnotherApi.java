@@ -34,6 +34,8 @@ public class AnotherApi implements IApiInterface {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean login(String email, String password) {
+
+
         Map<String, String> map = new HashMap<String, String>();
         map.put("email", email);
         map.put("password", password);
@@ -60,18 +62,62 @@ public class AnotherApi implements IApiInterface {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean AddFarmer(FarmerModel farmerModel) throws Exception {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("name", farmerModel.GetName());
-        map.put("description", farmerModel.GetDetails());
-        map.put("image", Integer.toString(farmerModel.GetImage()));
+
+        PostJob postJob = new PostJob("farmer");
+        postJob.AddText("name", farmerModel.GetName());
+        postJob.AddText("description", farmerModel.GetDetails());
+        postJob.SetImage("image", farmerModel.GetImageUrl());
+
 
         try {
-            String response = comm.sendSecurePost("farmer", map);
+            postJob.sendSecurePost();
             return true;
         } catch (Exception exception) {
             return false;
         }
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean UpdateFarmer(FarmerModel farmerModel) throws Exception {
+
+        PostJob postJob = new PostJob("farmer");
+        postJob.setID(farmerModel.GetID());
+
+        postJob.AddText("name", farmerModel.GetName());
+        postJob.AddText("description", farmerModel.GetDetails());
+        postJob.SetImage("image", farmerModel.GetImageUrl());
+
+
+        try {
+            postJob.sendSecurePost();
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean DeleteFarmer(FarmerModel farmerModel) throws Exception {
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", farmerModel.GetID());
+
+        try {
+            comm.sendSecureDelete("farmer", map);
+
+            return true;
+
+        } catch (Exception exception) {
+            return  false;
+        }
+    }
+
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -91,13 +137,38 @@ public class AnotherApi implements IApiInterface {
                         jsonObject.getString("id"),
                         jsonObject.getString("name"),
                         jsonObject.getString("description"),
-                        Integer.parseInt(jsonObject.getString("image"))
+                        jsonObject.getString("imageStr")
                         );
                 farmers.add(farmerModel);
             }
             return farmers;
         } catch (Exception exception) {
             return new ArrayList<FarmerModel>();
+        }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public FarmerModel GetFarmer(String id) throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", id);
+
+        try {
+            String response = comm.sendSecureGet("farmer", map);
+
+            JSONObject jsonObject = new JSONObject(response);
+
+            return new FarmerModel(
+                    jsonObject.getString("id"),
+                    jsonObject.getString("name"),
+                    jsonObject.getString("description"),
+                    jsonObject.getString("imageStr")
+            );
+
+
+
+        } catch (Exception exception) {
+            return new FarmerModel();
         }
     }
 

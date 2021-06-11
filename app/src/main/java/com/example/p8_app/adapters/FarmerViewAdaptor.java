@@ -4,13 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.p8_app.Logic.Session;
 import com.example.p8_app.Models.FarmerModel;
 import com.example.p8_app.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ private List<FarmerModel> mDataList;
         public TextView name,details;
         public Button selectFarmerButton;
         public ImageView imageView;
+        public ImageButton editFarmerButton;
 
         private ArrayList<FarmerModel> mData;
 
@@ -31,6 +35,11 @@ private List<FarmerModel> mDataList;
             details = (TextView) view.findViewById(R.id.FarmerDetails);
             imageView = (ImageView) view.findViewById(R.id.FarmerImage);
             selectFarmerButton = (Button) view.findViewById(R.id.selectFarmerButton);
+            editFarmerButton = (ImageButton) view.findViewById(R.id.EditFarmerButton);
+
+            if (Session.IsAdmin()){
+                editFarmerButton.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -56,9 +65,10 @@ private List<FarmerModel> mDataList;
     public void onBindViewHolder(MyViewHolder holder, int position) {
         FarmerModel data = mDataList.get(position);
         holder.selectFarmerButton.setTag(data.GetID());
+        holder.editFarmerButton.setTag(data.GetID());
         holder.name.setText(data.GetName() );
         holder.details.setText(data.GetDetails() );
-        holder.imageView.setImageResource(data.GetImage());
+        Picasso.get().load(data.GetImageUrl()).into(holder.imageView);
     }
 
     @Override

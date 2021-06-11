@@ -28,12 +28,27 @@ public class DummyApi implements IApiInterface {
     }
 
     @Override
+    public FarmerModel GetFarmer(String id) throws Exception {
+        return null;
+    }
+
+    @Override
     public List<FarmerModel> GetFarmers() throws Exception {
         return null;
     }
 
     @Override
+    public boolean DeleteFarmer(FarmerModel farmerModel) throws Exception {
+        return false;
+    }
+
+    @Override
     public boolean AddFarmer(FarmerModel farmerModel) throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean UpdateFarmer(FarmerModel farmerModel) throws Exception {
         return false;
     }
 

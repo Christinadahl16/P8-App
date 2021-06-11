@@ -17,4 +17,5 @@
     <string name="FoodItemPrice">Food item price</string>
     <string name="FoodItemOrigin">Food item origin</string>
     <string name="title_activity_framer_addition">Framer Addition</string>
+    <string name="title_activity_product_addition">ProductAdditionActivity</string>
 </resources>

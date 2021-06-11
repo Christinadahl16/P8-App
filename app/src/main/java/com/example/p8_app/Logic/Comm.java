@@ -16,11 +16,27 @@ public class Comm {
 
     private static String url = "http://192.168.1.111:8000/api/";
 
-    private static URL GetUrl(String subLink) throws MalformedURLException {
+    public static URL GetUrl(String subLink) throws MalformedURLException {
         return new URL(url + subLink);
     }
 
-    private String MapToParameters(Map<String, String> parametersMap){
+
+    public static  String MapToParametersToLaravel(Map<String, String> parametersMap){
+        StringBuilder parametersString = new StringBuilder();
+
+        for (Map.Entry<String, String> entry : parametersMap.entrySet()) {
+
+            if (parametersString.length() > 0)
+                parametersString.append("&");
+
+            parametersString.append("/" + entry.getValue());
+        }
+
+        return parametersString.toString();
+    }
+
+
+    public static  String MapToParameters(Map<String, String> parametersMap){
         StringBuilder parametersString = new StringBuilder();
 
         for (Map.Entry<String, String> entry : parametersMap.entrySet()) {
@@ -77,13 +93,29 @@ public class Comm {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String sendSecureGet(String address, Map<String, String> parameters) throws Exception {
 
-        String urlParameters = MapToParameters(parameters);
+            return sendSecureSend("GET", address, parameters);
+    }
 
-        URL url = GetUrl(address);
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public String sendSecureDelete(String address, Map<String, String> parameters) throws Exception {
+
+        return sendSecureSend("DELETE", address, parameters);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private String sendSecureSend(String Method, String address, Map<String, String> parameters) throws Exception {
+
+        String urlParameters = MapToParametersToLaravel(parameters);
+        URL url;
+
+        if (urlParameters.isEmpty())
+            url = GetUrl(address);
+        else
+            url = GetUrl(address + urlParameters);
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestProperty("Authorization", "Bearer "+Session.getAuth());
-        conn.setRequestMethod("GET");
+        conn.setRequestMethod(Method);
         conn.setRequestProperty("Accept", "application/json");
 
         if (conn.getResponseCode() != 200) {
@@ -106,6 +138,7 @@ public class Comm {
         return sb.toString();
 
     }
+
 
 
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,12 @@ public class FrontpageActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+
+        String targetFragment  = getIntent().getStringExtra("fragmentName");
+
+        if (targetFragment != null)
+            JumpToFragment(targetFragment);
     }
 
 
@@ -31,6 +38,8 @@ public class FrontpageActivity extends AppCompatActivity {
 
         super.onResume();
         tryReturnToLogin();
+
+
     }
 
     /*Signout button - when signing out, destroy current session*/
@@ -39,10 +48,23 @@ public class FrontpageActivity extends AppCompatActivity {
         tryReturnToLogin();
     }
 
+    public void editFarmer(View view) {
+
+        ImageButton editFramer = findViewById(R.id.EditFarmerButton);
+
+        Intent intent = new Intent(FrontpageActivity.this, FarmerAdditionActivity.class);
+        String id = editFramer.getTag().toString();
+
+        intent.putExtra("farmerID", id);
+
+        startActivity(intent);
+
+    }
+
 
     public void AddFarmer(View view) {
         startActivity(new Intent(FrontpageActivity.this, FarmerAdditionActivity.class));
-        finish();
+
     }
 
     /*If session is not logged in, start go to UserLogin class, else welcome the user with message*/
@@ -60,6 +82,33 @@ public class FrontpageActivity extends AppCompatActivity {
         }
     }
 
+    private void JumpToFragment(String fragmentID) {
+        Fragment selectedFragment = null;
+
+        switch (fragmentID) {
+            case "farmeroverview":
+                selectedFragment = new FarmerOverview();
+                break;
+            case "aboutGrønttorvet":
+                selectedFragment = new AboutgtFragment();
+                break;
+            case "AboutApp":
+                selectedFragment = new ThisappFragment();
+                break;
+
+            case "Myprofile":
+                selectedFragment = new ProfileFragment();
+                break;
+
+            default:
+                return;
+        }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    selectedFragment).commit();
+
+    }
+
     /*Navigation bar*/
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,21 +118,20 @@ public class FrontpageActivity extends AppCompatActivity {
 
                     switch (item.getItemId()) {
                         case R.id.farmeroverview:
-                            selectedFragment = new FarmerOverview();
+                            JumpToFragment("farmeroverview");
                             break;
                         case R.id.aboutGrønttorvet:
-                            selectedFragment = new AboutgtFragment();
+                            JumpToFragment("aboutGrønttorvet");
                             break;
                         case R.id.AboutApp:
-                            selectedFragment = new ThisappFragment();
+                            JumpToFragment("AboutApp");
                             break;
 
                         case R.id.Myprofile:
-                            selectedFragment = new ProfileFragment();
+                            JumpToFragment("Myprofile");
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
+
                     return true;
                 }
             };

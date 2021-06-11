@@ -12,6 +12,9 @@ public class CustomerModel {
     private String name;
     private String authKey;
 
+    public boolean IsAdmin (){
+        return this.email.equals("test@test.com");
+    }
 
     /*Constructors*/
     public CustomerModel(String email, String password) {

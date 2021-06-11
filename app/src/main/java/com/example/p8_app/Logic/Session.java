@@ -25,6 +25,9 @@ public class Session {
         return _customerModel.getAuthKey();
     }
 
+    public static boolean IsAdmin(){
+        return  _customerModel != null && _customerModel.IsAdmin();
+    }
     public static boolean isLoggedIn(){
         return  _customerModel != null && !_customerModel.getAuthKey().equals("");
     }

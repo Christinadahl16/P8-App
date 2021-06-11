@@ -20,6 +20,26 @@
         android:maxHeight="100dp"
         android:layout_width="100dp"
         android:layout_height="100dp" />
+    <Button
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="118dp"
+        android:layout_height="38dp"
+        android:onClick="SelectFarmer"
+        android:id="@+id/selectFarmerButton"
+        android:text="Se udvalg"
+        android:visibility="visible" />
+    <ImageButton
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginStart="130dp"
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        android:onClick="editFarmer"
+        android:id="@+id/EditFarmerButton"
+        android:src="@drawable/edit"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/FarmerName"
@@ -41,14 +61,6 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         />
-    <Button
-        android:layout_marginTop="110dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_width="177dp"
-        android:layout_height="38dp"
-        android:onClick="SelectFarmer"
-        android:id="@+id/selectFarmerButton"
-        android:text="Se udvalg"
-        android:visibility="visible" />
+
+
 </RelativeLayout>

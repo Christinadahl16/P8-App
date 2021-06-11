@@ -2,25 +2,25 @@ package com.example.p8_app.Models;
 
 public class FarmerModel {
     String Name;
-    int ImageID;
     String Details;
     String ID;
+    String Image;
 
     public FarmerModel(){
 
     }
 
-    public FarmerModel(String id, String name, String details, int imageID){
+    public FarmerModel(String name, String details, String imageID){
         SetDetails(details);
         SetName(name);
-        SetImage(imageID);
-        SetID(id);
+        SetImageUrl(imageID);
     }
 
-    public FarmerModel(String name, String details, int imageID){
+    public FarmerModel(String id, String name, String details, String imageID){
         SetDetails(details);
         SetName(name);
-        SetImage(imageID);
+        SetImageUrl(imageID);
+        SetID(id);
     }
 
 
@@ -40,10 +40,16 @@ public class FarmerModel {
         return ID;
     }
 
-    public void SetImage(int imageID){
-        ImageID = imageID;
+
+
+
+    public void SetImageUrl(String imageID){
+        Image = imageID;
     }
 
+    public String GetImageUrl(){
+        return Image;
+    }
     public String GetName(){
         return Name;
     }
@@ -51,7 +57,5 @@ public class FarmerModel {
     public String GetDetails(){
         return Details;
     }
-    public int GetImage(){
-        return ImageID;
-    }
+
 }

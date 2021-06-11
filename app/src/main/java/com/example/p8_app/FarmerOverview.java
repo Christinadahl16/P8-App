@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.p8_app.Logic.AnotherApi;
 import com.example.p8_app.Logic.IApiInterface;
+import com.example.p8_app.Logic.Session;
 import com.example.p8_app.Models.FarmerModel;
 import com.example.p8_app.adapters.FarmerViewAdaptor;
 
@@ -39,17 +41,18 @@ public class FarmerOverview extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
 
+        Button farmerButton = view.findViewById(R.id.AddFarmer);
+
+        if (!Session.IsAdmin()) {
+            farmerButton.setVisibility(View.INVISIBLE);
+        }
+
         PrepareList(mAdapter);
 
         return view;
     }
 
 
-
-    public void SelectFarmer(View view) {
-
-
-    }
 
    private int getImageID(String imageName){
         return getActivity().getResources()
