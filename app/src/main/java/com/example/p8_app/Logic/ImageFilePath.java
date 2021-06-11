@@ -8,10 +8,12 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Random;
 
 public class ImageFilePath {
 
+    private static String tempurl;
 
     public static Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -24,7 +26,19 @@ public class ImageFilePath {
         Cursor cursor = resolver.query(uri, null, null, null, null);
         cursor.moveToFirst();
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
+        tempurl = cursor.getString(idx);
+        return tempurl;
+    }
+
+    public static void Cleanup(){
+        File fdelete = new File(tempurl);
+        if (fdelete.exists()) {
+            if (fdelete.delete()) {
+                System.out.println("file Deleted :" );
+            } else {
+                System.out.println("file not Deleted :");
+            }
+        }
     }
 
 

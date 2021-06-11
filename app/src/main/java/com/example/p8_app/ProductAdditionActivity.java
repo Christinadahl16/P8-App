@@ -23,7 +23,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.p8_app.Logic.AnotherApi;
 import com.example.p8_app.Logic.IApiInterface;
 import com.example.p8_app.Logic.ImageFilePath;
-import com.example.p8_app.Models.FarmerModel;
+import com.example.p8_app.Models.ProductModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,17 +31,19 @@ import java.util.List;
 
 public class ProductAdditionActivity  extends AppCompatActivity {
 
-    private EditText farmerName;
-    private EditText farmerDetails;
-    private ImageView farmerImageView;
+    private EditText ProductName;
+    private EditText ProductDetails;
+    private EditText ProductPrice;
+    private ImageView ProductImageView;
     private Button submitChangesButton;
     private Button deleteButton;
 
 
-    private String FarmerID = "";
+    private String productID = "";
+    private String farmerID = "";
 
     private String Url;
-    public static final int PICK_IMAGE = 1;
+    public static final int PICK_IMAGE = 11;
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -68,33 +70,49 @@ public class ProductAdditionActivity  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_framer_addition);
+        setContentView(R.layout.activity_product_addition);
 
-        farmerName = findViewById(R.id.farmer_name);
-        farmerDetails = findViewById(R.id.farmer_details);
-        farmerImageView = findViewById(R.id.farmer_image_view);
-        submitChangesButton = findViewById(R.id.create_farmer);
-        deleteButton = findViewById(R.id.delete_farmer);
-
-        FarmerID = getIntent().getStringExtra("farmerID");
-
-        if (FarmerID == null) FarmerID = "";
+        ProductName = findViewById(R.id.Product_name);
+        ProductDetails = findViewById(R.id.Product_details);
+        ProductImageView = findViewById(R.id.product_image_view);
+        ProductPrice = findViewById(R.id.product_price);
 
 
-        if (!FarmerID.isEmpty()){
-            FetchFramerData();
+        submitChangesButton = findViewById(R.id.create_product);
+        deleteButton = findViewById(R.id.delete_product);
 
-            submitChangesButton.setText("Update Farmer");
+        productID = getIntent().getStringExtra("productID");
+        farmerID = getIntent().getStringExtra("farmerID");
+
+        if (productID == null) productID = "";
+
+        if (farmerID == null) {
+            Toast toast = Toast.makeText(ProductAdditionActivity.this, "No Farmer Selected", Toast.LENGTH_LONG);
+            toast.show();
+
+            Intent intent = new Intent(ProductAdditionActivity.this, FrontpageActivity.class);
+            intent.putExtra("fragmentName", "farmeroverview");
+            startActivity(intent);
+            finish();
+        }
+
+
+        if (!productID.isEmpty()){
+            FetchProductData();
+
+            submitChangesButton.setText("Update Product");
             deleteButton.setVisibility(View.VISIBLE);
 
         }else{
-            submitChangesButton.setText("Create Farmer");
+            submitChangesButton.setText("Create Product");
             deleteButton.setVisibility(View.INVISIBLE);
         }
     }
 
 
-    private void FetchFramerData(){
+
+
+    private void FetchProductData(){
 
 
         Thread thread = new Thread(new Runnable() {
@@ -103,19 +121,16 @@ public class ProductAdditionActivity  extends AppCompatActivity {
             public void run() {
                 try{
                     IApiInterface api = new AnotherApi();
-                    FarmerModel farmerModel = api.GetFarmer(FarmerID);
+                    ProductModel productModel = api.GetProduct(productID);
                     ProductAdditionActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
 
-                            // farmerName = findViewById(R.id.farmer_name);
-                            // farmerDetails = findViewById(R.id.farmer_details);
-                            // farmerImageView = findViewById(R.id.farmer_image_view);
-                            // submitChangesButton = findViewById(R.id.create_farmer);
-                            farmerName.setText(farmerModel.GetName());
-                            farmerDetails.setText(farmerModel.GetDetails());
-                            Picasso.get().load(farmerModel.GetImageUrl()).into(farmerImageView);
-                            submitChangesButton.setTag(FarmerID);
-                            deleteButton.setTag(FarmerID);
+                            ProductName.setText(productModel.GetName());
+                            ProductDetails.setText(productModel.GetDetails());
+                            Picasso.get().load(productModel.GetImage()).into(ProductImageView);
+                            ProductPrice.setText(productModel.GetPrice().toString());
+                            submitChangesButton.setTag(productID);
+                            deleteButton.setTag(productID);
                         }
                     });
                 } catch (Exception ex){
@@ -163,9 +178,9 @@ public class ProductAdditionActivity  extends AppCompatActivity {
             // photo from gallery?
             if (uri != null) {
                 // yes, photo from gallery
-                farmerImageView.setImageURI(uri);
+                ProductImageView.setImageURI(uri);
 
-                Url = getImageUrl(farmerImageView);
+                Url = getImageUrl(ProductImageView);
                 int a = 1;
             } else {
                 // no, photo from camera
@@ -188,6 +203,15 @@ public class ProductAdditionActivity  extends AppCompatActivity {
 
 
 
+    public void closeProductEditView(View view){
+
+        Intent intent = new Intent(ProductAdditionActivity.this, FarmerAdditionActivity.class);
+        intent.putExtra("farmerID", farmerID);
+
+        startActivity(intent);
+
+    }
+
     public void selectImage(View view){
         Intent intent = buildPicturePickerIntent(getPackageManager());
         startActivityForResult(intent, 100);
@@ -200,24 +224,25 @@ public class ProductAdditionActivity  extends AppCompatActivity {
                 .getIdentifier(imageName, "drawable", this.getPackageName());
     }
 
-    public void deleteFarmer(View view){
+    public void deleteProduct(View view){
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 IApiInterface api = new AnotherApi();
-                FarmerModel farmerModel = new FarmerModel();
-                farmerModel.SetID(FarmerID);
+                ProductModel productModel = new ProductModel();
+                productModel.SetID(productID);
                 try{
 
-                    if (api.DeleteFarmer(farmerModel)){
+                    if (api.DeleteProduct(productModel)){
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast toast = Toast.makeText(ProductAdditionActivity.this, "Successfully Deleted", Toast.LENGTH_LONG);
                                 toast.show();
 
                                 Intent intent = new Intent(ProductAdditionActivity.this, FrontpageActivity.class);
-                                intent.putExtra("fragmentName", "farmeroverview");
+                                intent.putExtra("fragmentName", "productsOverview");
+                                intent.putExtra("farmerID", farmerID);
                                 startActivity(intent);
                                 finish();
                             }
@@ -238,20 +263,23 @@ public class ProductAdditionActivity  extends AppCompatActivity {
     }
 
 
-    public void EditFarmer(View view){
+    public void EditProduct(View view){
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
-                String name = farmerName.getText().toString();
-                String details = farmerDetails.getText().toString();
+
+                String name = ProductName.getText().toString();
+                String details = ProductDetails.getText().toString();
+                Float price = Float.parseFloat(ProductPrice.getText().toString());
+                Url = getImageUrl(ProductImageView);
                 IApiInterface api = new AnotherApi();
-                Url = getImageUrl(farmerImageView);
-                FarmerModel farmerModel = new FarmerModel(FarmerID, name, details, Url);
+
+                ProductModel productModel = new ProductModel(productID, name, price,details,Url, farmerID);
 
                 try{
-
-                    if (api.UpdateFarmer(farmerModel)){
+                    // todo : redirect to activity
+                    if (api.UpdateProduct(productModel)){
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast toast = Toast.makeText(ProductAdditionActivity.this, "Successfully Updated", Toast.LENGTH_LONG);
@@ -267,16 +295,18 @@ public class ProductAdditionActivity  extends AppCompatActivity {
                             toast.show();
                         }
                     });
+                } finally {
+
                 }
             }
         });
         thread.start();
     }
 
-    public void CreateFarmer(View view) {
+    public void createProduct(View view) {
 
-        if (!FarmerID.isEmpty()){
-            EditFarmer(view);
+        if (!productID.isEmpty()){
+            EditProduct(view);
             return;
         }
 
@@ -284,18 +314,32 @@ public class ProductAdditionActivity  extends AppCompatActivity {
 
             @Override
             public void run() {
-                String name = farmerName.getText().toString();
-                String details = farmerDetails.getText().toString();
+                String name = ProductName.getText().toString();
+                String details = ProductDetails.getText().toString();
+                Float price = Float.parseFloat(ProductPrice.getText().toString());
                 IApiInterface api = new AnotherApi();
 
-                FarmerModel farmerModel = new FarmerModel(name, details, Url);
+                ProductModel productModel = new ProductModel(name, price,details,Url, farmerID);
 
                 try{
-                    if (api.AddFarmer(farmerModel)){
+                    if (api.AddProduct(productModel)){
+
+                        // todo : redirect to activity
+
                         Intent intent = new Intent(ProductAdditionActivity.this, FrontpageActivity.class);
-                        intent.putExtra("fragmentName", "farmeroverview");
+                        intent.putExtra("fragmentName", "productsOverview");
+                        intent.putExtra("farmerID", farmerID);
                         startActivity(intent);
                         finish();
+                    }
+                    else
+                    {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast toast = Toast.makeText(ProductAdditionActivity.this, "Error", Toast.LENGTH_LONG);
+                                toast.show();
+                            }
+                        });
                     }
                 }
                 catch (Exception exception){
@@ -305,6 +349,8 @@ public class ProductAdditionActivity  extends AppCompatActivity {
                             toast.show();
                         }
                     });
+                } finally {
+
                 }
             }
         });

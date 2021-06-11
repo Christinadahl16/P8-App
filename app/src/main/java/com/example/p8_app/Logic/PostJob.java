@@ -36,6 +36,7 @@ public class PostJob {
     }
 
     public void AddText (String name, String value){
+
         parameters.put(name, value);
     }
 
@@ -52,133 +53,139 @@ public class PostJob {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String sendSecurePost() throws Exception {
 
-        String fileName = "";
-        String imageFieldName = "";
+        try {
+            String fileName = "";
+            String imageFieldName = "";
 
-        for (Map.Entry<String, String> entry : imageParameters.entrySet()) {
+            for (Map.Entry<String, String> entry : imageParameters.entrySet()) {
 
-            imageFieldName = entry.getKey();
-            fileName = entry.getValue();
-        }
+                imageFieldName = entry.getKey();
+                fileName = entry.getValue();
+            }
 
-        FileInputStream fileInputStream = null;
+            FileInputStream fileInputStream = null;
 
-        if (fileName.isEmpty()) {
-            return new Comm().sendSecurePost(address, parameters);
-        }
+            if (fileName.isEmpty()) {
+                return new Comm().sendSecurePost(address, parameters);
+            }
 
-        fileInputStream = new FileInputStream(new File(fileName) );
-
-
-
-        String lineEnd = "\r\n";
-        String twoHyphens = "--";
-        String boundary =  "*****";
-
-        DataOutputStream dos = null;
-        DataInputStream inStream = null;
-
-        int bytesRead, bytesAvailable, bufferSize;
-
-        byte[] buffer;
-
-        int maxBufferSize = 1*1024*1024*1024;
-
-        if (_type.equals("PUT")){
-            address += "/" + _id;
-        }
-
-        URL url = GetUrl(address);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setRequestProperty("Authorization", "Bearer "+Session.getAuth());
-        conn.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
-        conn.setRequestProperty("Connection", "Keep-Alive");
-        conn.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
-
-        conn.setDoInput(true);
-        // Allow Outputs
-        conn.setDoOutput(true);
-        // Don't use a cached copy.
-        conn.setUseCaches(false);
+            fileInputStream = new FileInputStream(new File(fileName));
 
 
-        dos = new DataOutputStream( conn.getOutputStream() );
+            String lineEnd = "\r\n";
+            String twoHyphens = "--";
+            String boundary = "*****";
 
-        dos.writeBytes(twoHyphens + boundary + lineEnd);
-        dos.writeBytes("Content-Disposition: form-data; name=\"" + imageFieldName + "\";filename=\"" + fileName +"\"" + lineEnd);
-        dos.writeBytes("Content-Transfer-Encoding: binary" + lineEnd);
-        dos.writeBytes(lineEnd);
+            DataOutputStream dos = null;
+            DataInputStream inStream = null;
 
-        bytesAvailable = fileInputStream.available();
-        bufferSize = Math.min(bytesAvailable, maxBufferSize);
-        buffer = new byte[bufferSize];
+            int bytesRead, bytesAvailable, bufferSize;
 
-        bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            byte[] buffer;
 
-        while (bytesRead > 0)
-        {
-            dos.write(buffer, 0, bufferSize);
+            int maxBufferSize = 1 * 1024 * 1024 * 1024;
+
+            if (_type.equals("PUT")) {
+                address += "/" + _id;
+            }
+
+            URL url = GetUrl(address);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Bearer " + Session.getAuth());
+            conn.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+
+            conn.setDoInput(true);
+            // Allow Outputs
+            conn.setDoOutput(true);
+            // Don't use a cached copy.
+            conn.setUseCaches(false);
+
+
+            dos = new DataOutputStream(conn.getOutputStream());
+
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"" + imageFieldName + "\";filename=\"" + fileName + "\"" + lineEnd);
+            dos.writeBytes("Content-Transfer-Encoding: binary" + lineEnd);
+            dos.writeBytes(lineEnd);
+
             bytesAvailable = fileInputStream.available();
             bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            buffer = new byte[bufferSize];
+
             bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-        }
 
-        dos.writeBytes(lineEnd);
-
-        for (Map.Entry<String, String> entry : parameters.entrySet()) {
-
-            String key = entry.getKey();
-            String value = entry.getValue();
-
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"" + key + "\"" + lineEnd);
-            dos.writeBytes("Content-Type: text/plain" + lineEnd);
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(value);
-            dos.writeBytes(lineEnd);
-        }
-
-        if (_type.equals("PUT")){
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"_method\"" + lineEnd);
-            dos.writeBytes("Content-Type: text/plain" + lineEnd);
-            dos.writeBytes(lineEnd);
-            dos.writeBytes("PUT");
-            dos.writeBytes(lineEnd);
-        }
-
-
-        dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-        fileInputStream.close();
-        dos.flush();
-        dos.close();
-
-
-        if (conn.getResponseCode() != 200) {
-            String err = "";
-            InputStream error = conn.getErrorStream();
-            for (int i = 0; i < error.available(); i++) {
-                err += (char) error.read();
+            while (bytesRead > 0) {
+                dos.write(buffer, 0, bufferSize);
+                bytesAvailable = fileInputStream.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
             }
+
+            dos.writeBytes(lineEnd);
+
+            for (Map.Entry<String, String> entry : parameters.entrySet()) {
+
+                String key = entry.getKey();
+                String value = entry.getValue();
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+                dos.writeBytes("Content-Disposition: form-data; name=\"" + key + "\"" + lineEnd);
+                dos.writeBytes("Content-Type: text/plain" + lineEnd);
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(value);
+                dos.writeBytes(lineEnd);
+            }
+
+            if (_type.equals("PUT")) {
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+                dos.writeBytes("Content-Disposition: form-data; name=\"_method\"" + lineEnd);
+                dos.writeBytes("Content-Type: text/plain" + lineEnd);
+                dos.writeBytes(lineEnd);
+                dos.writeBytes("PUT");
+                dos.writeBytes(lineEnd);
+            }
+
+
+            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+            fileInputStream.close();
+            dos.flush();
+            dos.close();
+
+
+            if (conn.getResponseCode() != 200) {
+                String err = "";
+                InputStream error = conn.getErrorStream();
+                for (int i = 0; i < error.available(); i++) {
+                    err += (char) error.read();
+                }
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    (conn.getInputStream())));
+
+            String output;
+
+            StringBuilder sb = new StringBuilder();
+
+            while ((output = br.readLine()) != null) {
+                sb.append(output);
+            }
+            conn.disconnect();
+
+            return sb.toString();
         }
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-                (conn.getInputStream())));
-
-        String output;
-
-        StringBuilder sb = new StringBuilder();
-
-        while ((output = br.readLine()) != null) {
-            sb.append(output);
+        catch (Exception ex){
+            throw new Exception(ex);
         }
-        conn.disconnect();
-
-        return sb.toString();
+        finally {
+            ImageFilePath.Cleanup();
+        }
     }
 
 }

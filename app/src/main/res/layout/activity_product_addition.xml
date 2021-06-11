@@ -6,6 +6,17 @@
         android:layout_height="match_parent"
         tools:context=".ProductAdditionActivity">
 
+    <!--Headline TextView-->
+    <ImageView
+        android:id="@+id/closefarmer_image_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:onClick="closeProductEditView"
+        android:src="@drawable/close"
+        tools:layout_editor_absoluteX="373dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="2dp"></ImageView>
+
         <!--Headline TextView-->
         <TextView
             android:id="@+id/textView"
@@ -28,7 +39,7 @@
 
 
         <EditText
-            android:id="@+id/farmer_name"
+            android:id="@+id/Product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -46,78 +57,80 @@
 
 
         <EditText
-            android:id="@+id/farmer_details"
+            android:id="@+id/Product_details"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_marginTop="12dp"
-            android:hint="Farmer Details"
+            android:hint="Product Details"
             android:inputType="text"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/farmer_name"
+            app:layout_constraintEnd_toEndOf="@+id/Product_name"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/farmer_name"
-            app:layout_constraintTop_toBottomOf="@+id/farmer_name" />
+            app:layout_constraintStart_toStartOf="@+id/Product_name"
+            app:layout_constraintTop_toBottomOf="@+id/Product_name" />
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:id="@+id/farmer_image_view"
-            android:onClick="selectImage"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/farmer_name"
-            app:layout_constraintTop_toBottomOf="@+id/farmer_details"
-            app:layout_constraintVertical_bias="0.214"
-            ></ImageView>
+    <!--Login button-->
 
-        <!--Login button-->
-        <Button
-            android:id="@+id/farmer_image"
-            android:layout_width="150dp"
-            android:layout_height="46dp"
-            android:layout_marginBottom="64dp"
-            android:backgroundTint="@color/Blue"
-            android:onClick="selectImage"
-            android:text="Select Image"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/farmer_image_view"
-            app:layout_constraintStart_toStartOf="@+id/farmer_image_view"
-            app:layout_constraintTop_toBottomOf="@+id/farmer_image_view"
-            app:layout_constraintVertical_bias="0.214" />
+    <ImageView
+        android:id="@+id/product_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:onClick="selectImage"
+        android:src="@drawable/emptyimagebig"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/Product_name"
+        app:layout_constraintTop_toBottomOf="@+id/Product_details"
+        app:layout_constraintVertical_bias="0.179"></ImageView>
 
-        <Button
-            android:id="@+id/create_farmer"
+    <EditText
+        android:id="@+id/product_price"
+        android:layout_width="180dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="64dp"
+        android:hint="0.00 DKK"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/product_image_view"
+        app:layout_constraintHorizontal_bias="0.606"
+        app:layout_constraintStart_toStartOf="@+id/product_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/product_image_view"
+        app:layout_constraintVertical_bias="0.218" />
+
+    <Button
+            android:id="@+id/create_product"
             android:layout_width="360dp"
             android:layout_height="46dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="64dp"
-            android:onClick="CreateFarmer"
+            android:onClick="createProduct"
             android:backgroundTint="@color/Green"
             android:text="Create"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/farmer_name"
-            app:layout_constraintTop_toBottomOf="@+id/farmer_image"
+            app:layout_constraintEnd_toEndOf="@+id/Product_name"
+            app:layout_constraintTop_toBottomOf="@+id/product_price"
             app:layout_constraintVertical_bias="0.501" />
         <Button
-            android:id="@+id/delete_farmer"
+            android:id="@+id/delete_product"
             android:layout_width="360dp"
             android:layout_height="46dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="64dp"
-            android:onClick="deleteFarmer"
+            android:onClick="deleteProduct"
             android:backgroundTint="@color/purple_200"
             android:text="Delete Farmer"
             android:textColor="@color/black"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/create_farmer"
-            app:layout_constraintTop_toBottomOf="@+id/create_farmer"
+            app:layout_constraintEnd_toEndOf="@+id/create_product"
+            app:layout_constraintTop_toBottomOf="@+id/create_product"
             app:layout_constraintVertical_bias="0.501" />
 
 

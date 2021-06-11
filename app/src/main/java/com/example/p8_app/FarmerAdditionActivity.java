@@ -29,12 +29,16 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.widget.Toast.LENGTH_LONG;
+
 public class FarmerAdditionActivity  extends AppCompatActivity {
 
     private EditText farmerName;
     private EditText farmerDetails;
     private ImageView farmerImageView;
     private Button submitChangesButton;
+    private Button editFarmerProducts;
+
     private Button deleteButton;
 
 
@@ -75,6 +79,8 @@ public class FarmerAdditionActivity  extends AppCompatActivity {
         farmerImageView = findViewById(R.id.farmer_image_view);
         submitChangesButton = findViewById(R.id.create_farmer);
         deleteButton = findViewById(R.id.delete_farmer);
+        editFarmerProducts = findViewById(R.id.Edit_farmer_Products);
+
 
         FarmerID = getIntent().getStringExtra("farmerID");
 
@@ -115,6 +121,7 @@ public class FarmerAdditionActivity  extends AppCompatActivity {
                             farmerDetails.setText(farmerModel.GetDetails());
                             Picasso.get().load(farmerModel.GetImageUrl()).into(farmerImageView);
                             submitChangesButton.setTag(FarmerID);
+                            editFarmerProducts.setTag(FarmerID);
                             deleteButton.setTag(FarmerID);
                         }
                     });
@@ -127,6 +134,30 @@ public class FarmerAdditionActivity  extends AppCompatActivity {
         thread.start();
 
     }
+
+    public void closefarmerEditView(View view){
+        Intent intent = new Intent(FarmerAdditionActivity.this, FrontpageActivity.class);
+        intent.putExtra("fragmentName", "farmeroverview");
+
+        startActivity(intent);
+        finish();
+    }
+
+
+    public void EditFarmerProducts(View view){
+        Intent intent = new Intent(FarmerAdditionActivity.this, FrontpageActivity.class);
+        intent.putExtra("fragmentName", "productsOverview");
+
+
+        Button editProductButton = findViewById(R.id.Edit_farmer_Products);
+        String id = editProductButton.getTag().toString();
+
+        intent.putExtra("farmerID", FarmerID);
+        intent.putExtra("productID", id);
+
+        startActivity(intent);
+    }
+
 
     public Intent buildPicturePickerIntent(PackageManager packageManager) {
         // Camera
@@ -213,7 +244,7 @@ public class FarmerAdditionActivity  extends AppCompatActivity {
                     if (api.DeleteFarmer(farmerModel)){
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                Toast toast = Toast.makeText(FarmerAdditionActivity.this, "Successfully Deleted", Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(FarmerAdditionActivity.this, "Successfully Deleted", LENGTH_LONG);
                                 toast.show();
 
                                 Intent intent = new Intent(FarmerAdditionActivity.this, FrontpageActivity.class);
@@ -227,7 +258,7 @@ public class FarmerAdditionActivity  extends AppCompatActivity {
                 catch (Exception exception){
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast toast = Toast.makeText(FarmerAdditionActivity.this, exception.getMessage(), Toast.LENGTH_LONG);
+                            Toast toast = Toast.makeText(FarmerAdditionActivity.this, exception.getMessage(), LENGTH_LONG);
                             toast.show();
                         }
                     });
@@ -254,7 +285,7 @@ public class FarmerAdditionActivity  extends AppCompatActivity {
                     if (api.UpdateFarmer(farmerModel)){
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                Toast toast = Toast.makeText(FarmerAdditionActivity.this, "Successfully Updated", Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(FarmerAdditionActivity.this, "Successfully Updated", LENGTH_LONG);
                                 toast.show();
                             }
                         });
@@ -263,10 +294,13 @@ public class FarmerAdditionActivity  extends AppCompatActivity {
                 catch (Exception exception){
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast toast = Toast.makeText(FarmerAdditionActivity.this, exception.getMessage(), Toast.LENGTH_LONG);
+                            Toast toast = Toast.makeText(FarmerAdditionActivity.this, exception.getMessage(), LENGTH_LONG);
                             toast.show();
                         }
                     });
+                }
+                finally {
+
                 }
             }
         });
@@ -297,14 +331,24 @@ public class FarmerAdditionActivity  extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
+                    else {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast toast = Toast.makeText(FarmerAdditionActivity.this, "Cannot add framer", LENGTH_LONG);
+                                toast.show();
+                            }
+                        });
+                    }
                 }
                 catch (Exception exception){
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast toast = Toast.makeText(FarmerAdditionActivity.this, exception.getMessage(), Toast.LENGTH_LONG);
+                            Toast toast = Toast.makeText(FarmerAdditionActivity.this, exception.getMessage(), LENGTH_LONG);
                             toast.show();
                         }
                     });
+                } finally {
+
                 }
             }
         });

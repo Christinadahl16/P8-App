@@ -59,7 +59,7 @@ public class DummyApi implements IApiInterface {
     }
 
     @Override
-    public List<ProductModel> GetProducts() throws Exception {
+    public List<ProductModel> GetProducts(String id) throws Exception {
         return null;
     }
 

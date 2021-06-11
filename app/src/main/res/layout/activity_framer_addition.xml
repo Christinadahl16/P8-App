@@ -6,7 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".FarmerAdditionActivity">
 
+
     <!--Headline TextView-->
+    <ImageView
+        android:id="@+id/closefarmer_image_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:onClick="closefarmerEditView"
+        android:src="@drawable/close"
+        tools:layout_editor_absoluteX="373dp"
+        tools:layout_editor_absoluteY="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        ></ImageView>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
@@ -64,61 +76,58 @@
         android:layout_height="80dp"
         android:id="@+id/farmer_image_view"
         android:onClick="selectImage"
+        android:src="@drawable/emptyimagebig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/farmer_name"
         app:layout_constraintTop_toBottomOf="@+id/farmer_details"
         app:layout_constraintVertical_bias="0.214"
         ></ImageView>
 
-    <!--Login button-->
-    <Button
-        android:id="@+id/farmer_image"
-        android:layout_width="150dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="64dp"
-        android:backgroundTint="@color/Blue"
-        android:onClick="selectImage"
-        android:text="Select Image"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/farmer_image_view"
-        app:layout_constraintStart_toStartOf="@+id/farmer_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/farmer_image_view"
-        app:layout_constraintVertical_bias="0.214" />
 
     <Button
         android:id="@+id/create_farmer"
         android:layout_width="360dp"
         android:layout_height="46dp"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
         android:layout_marginBottom="64dp"
-        android:onClick="CreateFarmer"
         android:backgroundTint="@color/Green"
+        android:onClick="CreateFarmer"
         android:text="Create"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/farmer_name"
-        app:layout_constraintTop_toBottomOf="@+id/farmer_image"
-        app:layout_constraintVertical_bias="0.501" />
+
+        app:layout_constraintTop_toBottomOf="@+id/farmer_image_view"
+        app:layout_constraintVertical_bias="0.292"
+        tools:layout_editor_absoluteX="23dp" />
+
+    <Button
+        android:id="@+id/Edit_farmer_Products"
+        android:layout_width="360dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/Blue"
+        android:onClick="EditFarmerProducts"
+        android:text="Edit Products"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_farmer"
+        app:layout_constraintVertical_bias="0.144"
+        tools:layout_editor_absoluteX="23dp" />
+
     <Button
         android:id="@+id/delete_farmer"
         android:layout_width="360dp"
         android:layout_height="46dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
         android:layout_marginBottom="64dp"
-        android:onClick="deleteFarmer"
         android:backgroundTint="@color/purple_200"
+        android:onClick="deleteFarmer"
         android:text="Delete Farmer"
         android:textColor="@color/black"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/create_farmer"
-        app:layout_constraintTop_toBottomOf="@+id/create_farmer"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintTop_toBottomOf="@+id/Edit_farmer_Products"
+        app:layout_constraintVertical_bias="0.269"
+        tools:layout_editor_absoluteX="23dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

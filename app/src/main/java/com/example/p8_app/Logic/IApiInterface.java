@@ -14,7 +14,7 @@ public interface IApiInterface {
 
      List<FarmerModel> GetFarmers() throws Exception;
 
-     public boolean DeleteFarmer(FarmerModel farmerModel) throws Exception;
+     boolean DeleteFarmer(FarmerModel farmerModel) throws Exception;
 
      boolean AddFarmer(FarmerModel farmerModel) throws Exception ;
 
@@ -25,9 +25,9 @@ public interface IApiInterface {
 
      ProductModel GetProduct(String id) throws Exception;
 
-     List<ProductModel> GetProducts() throws Exception;
+     List<ProductModel> GetProducts(String FramerID) throws Exception;
 
-     public boolean DeleteProduct(ProductModel productModel) throws Exception;
+     boolean DeleteProduct(ProductModel productModel) throws Exception;
 
      boolean AddProduct(ProductModel productModel) throws Exception ;
 

@@ -173,8 +173,11 @@ public class AnotherApi implements IApiInterface {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public List<ProductModel> GetProducts() throws Exception {
+    public List<ProductModel> GetProducts(String FarmerID) throws Exception {
         Map<String, String> map = new HashMap<String, String>();
+
+        map.put("id", FarmerID);
+
         List<ProductModel> products =  new ArrayList<ProductModel>();
         try {
             String response = comm.sendSecureGet("products", map);
@@ -224,8 +227,8 @@ public class AnotherApi implements IApiInterface {
         postJob.AddText("name", productModel.GetName());
         postJob.AddText("description", productModel.GetDetails());
         postJob.SetImage("image", productModel.GetImage());
-        postJob.SetImage("farmer_id", productModel.GetFarmer());
-        postJob.SetImage("price", productModel.GetPrice().toString());
+        postJob.AddText("farmer_id", productModel.GetFarmer());
+        postJob.AddText("price", productModel.GetPrice().toString());
 
         try {
             postJob.sendSecurePost();
@@ -244,8 +247,8 @@ public class AnotherApi implements IApiInterface {
         postJob.AddText("name", productModel.GetName());
         postJob.AddText("description", productModel.GetDetails());
         postJob.SetImage("image", productModel.GetImage());
-        postJob.SetImage("farmer_id", productModel.GetFarmer());
-        postJob.SetImage("price", productModel.GetPrice().toString());
+        postJob.AddText("farmer_id", productModel.GetFarmer());
+        postJob.AddText("price", productModel.GetPrice().toString());
 
 
         try {
