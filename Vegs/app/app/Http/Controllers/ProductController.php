@@ -68,6 +68,8 @@ class ProductController extends Controller
         $post->image = $path;
         $post->save();
 
+         return $this->show($post->id);
+
     }
 
     /**
@@ -121,14 +123,40 @@ class ProductController extends Controller
 
 
 
-                       $post = Product::find($id);
+                    $post = Product::find($id);
                     $post->name = $request['name'];
                     $post->description = $request['description'];
                     $post->price = $request['price'];
                     $post->farmer_id = $request['farmer_id'];
                     $post->image = $path;
                     $post->save();
+
+                    return $this->show($id);
     }
+
+
+        /**
+         * Display the specified resource.
+         *
+         * @param  int  $idListString 1,2,3,4,5
+         * @return \Illuminate\Http\Response
+         */
+        public function showByID($idListString)
+        {
+            $idList = explode(",", $idListString);
+
+            $items = Product::whereIn('id', $idList)->orderByDesc('updated_at')->get();
+
+            foreach ($items as $message) {
+                     if (Storage::exists($message->image)) {
+                         $message->imageStr =  asset(Storage::url($message->image));
+                     }
+                    else
+                      $message->imageStr = "";
+                  }
+
+             return response($items);
+        }
 
     /**
      * Remove the specified resource from storage.

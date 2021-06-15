@@ -30,7 +30,12 @@ Route::middleware('auth:sanctum')->post('/product', 'App\Http\Controllers\Produc
 Route::middleware('auth:sanctum')->get('/products/{id}', 'App\Http\Controllers\ProductController@index');
 Route::middleware('auth:sanctum')->get('/product/{id}', 'App\Http\Controllers\ProductController@show');
 Route::middleware('auth:sanctum')->put('/product/{id}', 'App\Http\Controllers\ProductController@update');
+Route::middleware('auth:sanctum')->get('/productsByID/{showByID}', 'App\Http\Controllers\ProductController@showByID');
 Route::middleware('auth:sanctum')->delete('/product/{id}', 'App\Http\Controllers\ProductController@destroy');
+
+
+Route::middleware('auth:sanctum')->post('/cart', 'App\Http\Controllers\CartController@store');
+Route::middleware('auth:sanctum')->get('/cart', 'App\Http\Controllers\CartController@index');
 
 
 Route::prefix('/')->group(function(){

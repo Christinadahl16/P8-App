@@ -59,6 +59,8 @@ class FarmerController extends Controller
         $post->image = $path;
         $post->save();
 
+        return $this->show($post->id);
+
     }
 
     /**
@@ -78,6 +80,8 @@ class FarmerController extends Controller
 
          return response($item);
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -111,6 +115,8 @@ class FarmerController extends Controller
                 $post->description = $request['description'];
                 $post->image = $path;
                 $post->save();
+
+                return $this->show($id);
     }
 
     /**
