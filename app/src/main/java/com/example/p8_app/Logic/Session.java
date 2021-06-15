@@ -11,16 +11,28 @@ public class Session {
     private static CartModel _cartModel;
     //private static Date loginDate;
     private static FoodSelectionModel _foodSelectionModel;
-
+    private static  StateManagement _stateManagement;
 
     public static CartModel GetCart(){
+        if (_cartModel == null)
+            _cartModel = new CartModel();
+
+        if (_cartModel.DeleteOnAccess)
+            _cartModel.EmptyCard();
+
+        _cartModel.DeleteOnAccess = false;
+
         return _cartModel;
     }
 
     public static void setCustomerModel(CustomerModel customerModel){
         _customerModel = customerModel;
-        _cartModel = new CartModel();
+        _stateManagement = new StateManagement();
         //loginDate = new Date(System.currentTimeMillis());;
+    }
+
+    public static StateManagement getStateManagement(){
+        return _stateManagement;
     }
 
     public static String getName(){

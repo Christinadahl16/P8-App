@@ -1,12 +1,10 @@
 package com.example.p8_app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,52 +17,44 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.p8_app.Logic.AnotherApi;
 import com.example.p8_app.Logic.IApiInterface;
 import com.example.p8_app.Logic.Session;
+import com.example.p8_app.Models.CartModel;
 import com.example.p8_app.Models.ProductModel;
-import com.example.p8_app.adapters.ListViewAdaptor;
+import com.example.p8_app.adapters.SalesListViewAdaptor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsFragment extends Fragment {
+public class SalesFragment extends Fragment {
 
         private List<ProductModel> mDataList = new ArrayList<>();
-        private String framerID = "";
         IApiInterface api;
-        private ListViewAdaptor mAdapter;
+        private SalesListViewAdaptor mAdapter;
         SwipeRefreshLayout swipeRefreshLayout;
+        TextView deliveryThanksYou;
+        CartModel cartModel;
 
         @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-               View view = inflater.inflate(R.layout.fragment_products, container, false);
-               RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+           View view = inflater.inflate(R.layout.sale_fragment, container, false);
+           RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-                mAdapter = new ListViewAdaptor(mDataList);
-                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
-                mRecyclerView.setLayoutManager(mLayoutManager);
-                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                mRecyclerView.setHasFixedSize(true);
-                mRecyclerView.setAdapter(mAdapter);
+            mAdapter = new SalesListViewAdaptor(mDataList);
+            mAdapter.NoAdmin(true);
+            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 1);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setAdapter(mAdapter);
+
+            deliveryThanksYou =  view.findViewById(R.id.delivery_thankyou);
 
             swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.Product_Swipe);
-            framerID = getActivity().getIntent().getStringExtra("farmerID");
 
-            if (framerID == null) {
-                Toast toast = Toast.makeText(getActivity(), "No Farmer Selected", Toast.LENGTH_LONG);
-                toast.show();
 
-                Intent intent = new Intent(getActivity(), FrontpageActivity.class);
-                intent.putExtra("fragmentName", "farmeroverview");
-                startActivity(intent);
-                return view;
-            }
-            ImageButton AddProductButton = (ImageButton) view.findViewById(R.id.AddProductButton);
-            if (Session.IsAdmin()){
-                AddProductButton.setVisibility(View.VISIBLE);
-                AddProductButton.setTag(framerID);
-            }
 
+            cartModel = Session.GetCart();
 
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -80,6 +70,7 @@ public class ProductsFragment extends Fragment {
 
                return view;
         }
+
 
     @Override
     public void onResume() {
@@ -102,10 +93,16 @@ public class ProductsFragment extends Fragment {
 
                     try{
                         swipeRefreshLayout.setRefreshing(true);
-                        mDataList = api.GetProducts(framerID);
+
+                        String Idlist = Session.GetCart().ProductIDS();
+
+                        mDataList = api.GetCartProducts(Idlist);
                         getActivity().runOnUiThread(new Runnable() {
                             public void run() {
-                                mAdapter.update(mDataList);
+
+                                deliveryThanksYou.setText("Total Price :" + cartModel.GetTotal().toString()  + "\n \n \n  Thank you for your order.. it will be delivered on " + cartModel.DeliveryDate);
+                                mAdapter.update(mDataList, cartModel);
+                                cartModel.DeleteOnAccess = true;
 
                             }
                         });

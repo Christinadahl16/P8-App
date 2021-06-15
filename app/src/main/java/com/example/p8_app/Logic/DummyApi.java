@@ -1,11 +1,13 @@
 package com.example.p8_app.Logic;
 
 
+import com.example.p8_app.Models.CartItem;
 import com.example.p8_app.Models.CustomerModel;
 import com.example.p8_app.Models.FarmerModel;
 import com.example.p8_app.Models.ProductModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class DummyApi implements IApiInterface {
@@ -26,6 +28,16 @@ public class DummyApi implements IApiInterface {
         );
 
         return customerModelList;
+    }
+
+    @Override
+    public void forceServer(boolean forceServerFlag) {
+
+    }
+
+    @Override
+    public List<ProductModel> GetCartProducts(String idList) throws Exception {
+        return null;
     }
 
     @Override
@@ -50,6 +62,11 @@ public class DummyApi implements IApiInterface {
 
     @Override
     public boolean UpdateFarmer(FarmerModel farmerModel) throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean CompleteTransaction(Collection<CartItem> itemCollection, String delivery) throws Exception {
         return false;
     }
 

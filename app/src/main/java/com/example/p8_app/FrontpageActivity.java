@@ -4,15 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.p8_app.Logic.AnotherApi;
+import com.example.p8_app.Logic.IApiInterface;
 import com.example.p8_app.Logic.Session;
+import com.example.p8_app.Models.CartItem;
 import com.example.p8_app.Models.CartModel;
+import com.example.p8_app.Models.ProductModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Collection;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 
 public class FrontpageActivity extends AppCompatActivity {
@@ -57,6 +67,7 @@ public class FrontpageActivity extends AppCompatActivity {
     }
 
 
+
     public void DecreaseOrder(View view) {
 
         View Parent = (View) view.getParent();
@@ -64,36 +75,46 @@ public class FrontpageActivity extends AppCompatActivity {
         CartModel cartModel= Session.GetCart();
         String productID = view.getTag().toString();
 
+        IApiInterface api = new AnotherApi();
+        try {
+            ProductModel productModel = api.GetProduct(productID);
 
-        TextView price = Parent.findViewById(R.id.productlistprice);
-        TextView totalPrice = findViewById(R.id.totalPrice);
-        cartModel.DecItem(productID, Float.parseFloat(price.getText().toString()));
+            cartModel.DecItem(productModel);
 
-        TextView quantity = Parent.findViewById(R.id.product_quantity);
+            TextView quantity = Parent.findViewById(R.id.product_quantity);
 
-        quantity.setText(cartModel.GetQuantity(productID).toString());
+            quantity.setText(cartModel.GetQuantity(productID).toString());
 
-        totalPrice.setText(cartModel.GetTotal().toString() + "  DKK");
+            TextView totalPrice = findViewById(R.id.totalPrice);
+            totalPrice.setText(cartModel.GetTotal().toString() + "  DKK");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
 
     }
 
     public void IncreaseOrder(View view) {
 
-
-       View Parent = (View) view.getParent();
+        View Parent = (View) view.getParent();
 
         CartModel cartModel= Session.GetCart();
         String productID = view.getTag().toString();
 
-        TextView totalPrice = findViewById(R.id.totalPrice);
-        TextView price = Parent.findViewById(R.id.productlistprice);
+        IApiInterface api = new AnotherApi();
+        try {
+            ProductModel productModel = api.GetProduct(productID);
 
-        cartModel.IncItem(productID, Float.parseFloat(price.getText().toString()));
+            cartModel.IncItem(productModel);
 
-        TextView quantity = Parent.findViewById(R.id.product_quantity);
+            TextView quantity = Parent.findViewById(R.id.product_quantity);
 
-        quantity.setText(cartModel.GetQuantity(productID).toString());
-        totalPrice.setText(cartModel.GetTotal().toString() + "  DKK");
+            quantity.setText(cartModel.GetQuantity(productID).toString());
+
+            TextView totalPrice = findViewById(R.id.totalPrice);
+            totalPrice.setText(cartModel.GetTotal().toString() + "  DKK");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
 
     }
 
@@ -106,6 +127,65 @@ public class FrontpageActivity extends AppCompatActivity {
         JumpToFragment("productsOverview");
 
     }
+
+    public void GoToCart(View view) {
+        JumpToFragment("gotocart");
+    }
+
+
+    public void CompleteTransaction(View view) {
+        IApiInterface api = new AnotherApi();
+
+        EditText deliveryDataBox = findViewById(R.id.delivery_date);
+
+        String deliveryDate = deliveryDataBox.getText().toString();
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                IApiInterface api = new AnotherApi();
+
+                Collection<CartItem> items = Session.GetCart().GetItems();
+
+                try{
+                    if (deliveryDate.isEmpty()) {
+                        throw new Exception("Delivery Date can not be empty");
+                    }
+
+                    Session.GetCart().DeliveryDate = deliveryDate;
+
+                    if (api.CompleteTransaction(items, deliveryDate)){
+                       TextView totalPrice =  findViewById(R.id.totalPrice);
+                        totalPrice.setText("");
+                        JumpToFragment("SalesFragment");
+                    }
+                    else {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast toast = Toast.makeText(FrontpageActivity.this, "Cannot Complete Transaction", LENGTH_LONG);
+                                toast.show();
+                            }
+                        });
+                    }
+                }
+                catch (Exception exception){
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast toast = Toast.makeText(FrontpageActivity.this, exception.getMessage(), LENGTH_LONG);
+                            toast.show();
+                        }
+                    });
+                } finally {
+
+                }
+            }
+        });
+
+        thread.start();
+
+    }
+
 
     public void editFarmer(View view) {
 
@@ -168,6 +248,9 @@ public class FrontpageActivity extends AppCompatActivity {
         Fragment selectedFragment = null;
 
         switch (fragmentID) {
+            case "SalesFragment" :
+                selectedFragment = new SalesFragment();
+                break;
             case "productsOverview":
                 selectedFragment = new ProductsFragment();
                 break;
@@ -186,7 +269,8 @@ public class FrontpageActivity extends AppCompatActivity {
                 break;
 
             default:
-                return;
+                selectedFragment = new CartFragment();
+                break;
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

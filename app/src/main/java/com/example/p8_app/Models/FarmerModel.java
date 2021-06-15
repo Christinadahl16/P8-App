@@ -6,6 +6,8 @@ public class FarmerModel {
     String ID;
     String Image;
 
+    public static final String DataSource = "Farmers";
+
     public FarmerModel(){
 
     }

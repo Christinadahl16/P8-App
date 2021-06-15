@@ -5,14 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
-public class CartModel {
+public class SalesModel {
     Map<String, CartItem> cartItems = new HashMap<String, CartItem>();
-    public String DeliveryDate;
 
-    public boolean DeleteOnAccess = false;
-
-    public static final String DataSource = "CartItems";
+    public static final String DataSource = "SalesModel";
 
     public String ProductIDS (){
 
@@ -42,10 +38,6 @@ public class CartModel {
         return cartItems.values();
     }
 
-    public void EmptyCard(){
-        DeliveryDate = "";
-        cartItems = new HashMap<String, CartItem>();
-    }
 
     public void IncItem(ProductModel productModel){
         if (!cartItems.containsKey(productModel.ID)){
@@ -98,9 +90,5 @@ public class CartModel {
 
         if (cartItem.Quantity > 0)
             cartItem.Quantity--;
-
-        if (cartItem.Quantity == 0){
-            cartItems.remove(productModel.ID);
-        }
     }
 }

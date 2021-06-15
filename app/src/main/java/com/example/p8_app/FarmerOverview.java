@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.p8_app.Logic.AnotherApi;
 import com.example.p8_app.Logic.IApiInterface;
@@ -27,6 +28,9 @@ import java.util.List;
 public class FarmerOverview extends Fragment {
     private List<FarmerModel> mDataList = new ArrayList<>();
     RecyclerView mRecyclerView;
+    SwipeRefreshLayout swipeRefreshLayout;
+    FarmerViewAdaptor mAdapter;
+    IApiInterface api;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,12 +38,27 @@ public class FarmerOverview extends Fragment {
         View view = inflater.inflate(R.layout.activity_farmeroverview, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.Farmer_recycler_view);
 
-        FarmerViewAdaptor mAdapter = new FarmerViewAdaptor(mDataList);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.Farmer_Swipe);
+
+
+        mAdapter = new FarmerViewAdaptor(mDataList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                api.forceServer(true);
+                PrepareList();
+            }
+        });
+
+
 
         ImageButton farmerButton = view.findViewById(R.id.AddFarmer);
 
@@ -47,7 +66,8 @@ public class FarmerOverview extends Fragment {
             farmerButton.setVisibility(View.INVISIBLE);
         }
 
-        PrepareList(mAdapter);
+        api = new AnotherApi();
+        PrepareList();
 
         return view;
     }
@@ -60,7 +80,7 @@ public class FarmerOverview extends Fragment {
     }
 
 
-    private void PrepareList(FarmerViewAdaptor mAdapter){
+    private void PrepareList(){
 
 
         Thread thread = new Thread(new Runnable() {
@@ -69,15 +89,18 @@ public class FarmerOverview extends Fragment {
             public void run() {
 
                 try{
-                    IApiInterface api = new AnotherApi();
+                    swipeRefreshLayout.setRefreshing(true);
                     mDataList = api.GetFarmers();
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             mAdapter.update(mDataList);
+
                         }
                     });
                 } catch (Exception ex){
 
+                }finally {
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         });
@@ -85,6 +108,7 @@ public class FarmerOverview extends Fragment {
         thread.start();
 
     }
+
 }
 
 

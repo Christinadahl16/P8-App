@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:id="@+id/farmeroverview"
+    android:id="@+id/sale_fragment"
     tools:context=".FarmerOverview">
 
     <!--Farmer TextView-->
@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="0.0"
         android:fillViewport="true"
         tools:context=".CartFragment"
-        tools:layout="@layout/shoppingbasket">
+        tools:layout="@layout/list_view_cartitem">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -47,40 +47,21 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    <EditText
-        android:id="@+id/delivery_date"
-        android:layout_width="150dp"
-        android:focusable="false"
-        android:layout_height="50dp"
-        android:layout_marginStart="136dp"
-        android:layout_marginLeft="136dp"
+
+
+    <TextView
+        android:id="@+id/delivery_thankyou"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
         android:background="@color/white"
         android:gravity="center"
-        android:hint="Delivery date"
-        android:visibility="invisible"
-        android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Product_Swipe"
-        app:layout_constraintVertical_bias="0.095" />
-
-    <Button
-        android:id="@+id/delivery_submit"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_marginStart="136dp"
-        android:layout_marginLeft="136dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:onClick="CompleteTransaction"
-        android:text="Buy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delivery_date"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.14" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".FrontpageActivity">
 
+  <!--Sign out button-->
+  <ImageButton
+      android:id="@+id/cart"
+      android:layout_width="20dp"
+      android:layout_height="20dp"
+      android:layout_marginTop="15dp"
+      android:layout_marginBottom="50dp"
+      android:onClick="GoToCart"
+      android:background="@color/white"
+      android:layout_marginEnd="250dp"
+      android:translationZ="2dp"
+      android:src="@drawable/cart"
+      android:layout_alignParentRight="true"
+      android:layout_marginRight="250dp" />
+
   <TextView
       android:id="@+id/totalPrice"
       android:layout_width="140dp"
@@ -26,8 +41,8 @@
   <!--Sign out button-->
   <ImageButton
       android:id="@+id/SignOut"
-      android:layout_width="50dp"
-      android:layout_height="50dp"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
       android:layout_marginBottom="60dp"
       android:onClick="signOut"
       android:background="@color/white"
@@ -49,7 +64,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_above="@id/bottom_nav"
-      android:layout_marginBottom="0dp" >
+      android:layout_marginBottom="74dp">
 
     <TextView
         android:id="@+id/welcomeMessage"

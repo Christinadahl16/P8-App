@@ -91,11 +91,13 @@ public class FarmerAdditionActivity  extends AppCompatActivity {
             FetchFramerData();
 
             submitChangesButton.setText("Update Farmer");
+            editFarmerProducts.setVisibility(View.VISIBLE);
             deleteButton.setVisibility(View.VISIBLE);
 
         }else{
             submitChangesButton.setText("Create Farmer");
             deleteButton.setVisibility(View.INVISIBLE);
+            editFarmerProducts.setVisibility(View.INVISIBLE);
         }
     }
 

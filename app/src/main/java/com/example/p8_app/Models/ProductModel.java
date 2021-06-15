@@ -8,9 +8,12 @@ public class ProductModel {
     String Details;
     String ID;
 
+    public static final String DataSource = "Products";
+
     public ProductModel(){
 
     }
+
 
     public ProductModel(String ID, String name, float price, String details, String imageID, String farmer){
         setPrice(price);

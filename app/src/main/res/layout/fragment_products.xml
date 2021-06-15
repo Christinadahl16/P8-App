@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:id="@+id/farmeroverview"
     tools:context=".FarmerOverview">
 
     <!--Farmer TextView-->
@@ -27,25 +26,24 @@
 
 
 
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/AddProductButton"
-    app:layout_constraintVertical_bias="0.0"
-    android:fillViewport="true"
-    tools:context=".ProductsFragment"
-    tools:layout="@layout/fragment_products">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/Product_Swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AddProductButton"
+        app:layout_constraintVertical_bias="0.0"
+        android:fillViewport="true"
+        tools:context=".ProductsFragment"
+        tools:layout="@layout/fragment_products">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/recycler_view"/>
-</LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

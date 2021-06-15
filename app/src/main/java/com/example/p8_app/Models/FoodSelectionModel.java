@@ -11,6 +11,7 @@ public class FoodSelectionModel {
     private String price;
     private String origin;
 
+
     /*Constructor*/
     public FoodSelectionModel(String foodItemName, String price, String origin) {
         this.foodItemName = foodItemName;
